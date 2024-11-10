@@ -16,25 +16,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function aplicarPermisosSegunRol(rol) {
     const menuItems = {
-        'inicio': document.querySelector('a[onclick="cargarPagina(\'index.html\')"]').parentElement,
+        'inicio': document.querySelector('a[onclick="cargarPagina(\'form.html\')"]').parentElement,
         'registro': document.querySelector('a[onclick="cargarPagina(\'registro.html\')"]').parentElement,
         'seguimiento': document.querySelector('a[onclick="cargarPagina(\'seguimiento.html\')"]').parentElement
     };
 
     switch(rol.toLowerCase()) {
         case 'admin':
-            // Admin ve todo
+            // Admin ve todo (form.html, registro.html, seguimiento.html)
             break;
         case 'vendedor':
-            // Vendedor solo ve inicio y registro
+            // Vendedor solo ve form.html
+            menuItems.registro.style.display = 'none';
             menuItems.seguimiento.style.display = 'none';
             break;
         case 'supervisor':
-            // Supervisor ve inicio y seguimiento
-            menuItems.registro.style.display = 'none';
+            // Supervisor ve form.html y registro.html
+            menuItems.seguimiento.style.display = 'none';
             break;
         default:
-            // Por defecto, solo ve inicio
+            // Por defecto, solo ve form.html
             menuItems.registro.style.display = 'none';
             menuItems.seguimiento.style.display = 'none';
     }
@@ -58,3 +59,4 @@ function cerrarSesion() {
     sessionStorage.removeItem('usuario');
     window.location.href = 'index.html';
 }
+
