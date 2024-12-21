@@ -1,99 +1,1078 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Cotizaciones</title>
+    <title>24/7 Seguridad Integral</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Anaheim&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #1b5d03;
+            --secondary: #239a02;
+        }
+
         body {
-            background-color: #f8f9fa;
+            font-family: 'Anaheim', sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            padding: 25px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            background: transparent;
+            color: var(--primary) !important;
+            padding: 12px 25px !important;
+            margin: 0 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(27, 93, 3, 0.05);
+            color: var(--secondary) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -5px;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 15px;
+            background: rgba(27, 93, 3, 0.2);
+        }
+
+        .nav-item:last-child::before {
+            display: none;
+        }
+
+        /* Carousel */
+        .carousel {
+            margin-top: 0;
+        }
+
+        .carousel-item {
             height: 100vh;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            background: rgba(0,0,0,0.6);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Modal */
+        .modal-header {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn-success:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .whatsapp-float a {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
         }
-        .login-container {
+
+        .whatsapp-float a:hover {
+            transform: scale(1.1);
+        }
+
+        /* Logo flotante */
+        .navbar-brand {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            transform: translateX(0);
+            z-index: 1100;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand img {
+            height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                padding: 10px;
+            }
+
+            .navbar-brand img {
+                height: 60px;
+            }
+
+            .carousel {
+                margin-top: 76px;
+            }
+
+            .carousel-item {
+                height: 500px;
+            }
+        }
+
+        /* Agregar estilos para las tarjetas de servicios */
+        .services-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .service-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-header {
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
             text-align: center;
-            margin-bottom: 2rem;
         }
-        .login-header i {
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .service-card i {
             font-size: 3rem;
-            color: #1565C0;
-            margin-bottom: 1rem;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
-        .login-header h2 {
-            color: #1565C0;
+
+        .service-card h3 {
+            color: var(--primary);
             font-size: 1.5rem;
+            margin-bottom: 15px;
         }
-        .form-control:focus {
-            border-color: #1565C0;
-            box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.25);
-        }
-        .btn-primary {
-            background-color: #1565C0;
-            border-color: #1565C0;
-            width: 100%;
-            padding: 0.8rem;
-        }
-        .btn-primary:hover {
-            background-color: #0d47a1;
-            border-color: #0d47a1;
-        }
-        .input-group-text {
-            background-color: transparent;
-            border-right: none;
-        }
-        .form-control {
-            border-left: none;
-        }
-        .form-floating label {
+
+        .service-card p {
             color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Estilos modernos para el modal */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            padding: 25px 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            background-color: white;
+            opacity: 1;
+            padding: 8px;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 0.2rem rgba(35, 154, 2, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+
+        .modal .btn-success {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .modal .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(35, 154, 2, 0.3);
+        }
+
+        /* Animación del modal */
+        .modal.fade .modal-dialog {
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-dialog {
+            transform: scale(1);
+        }
+
+        /* Estilos para estadísticas */
+        .stats-section {
+            background: linear-gradient(rgba(27, 93, 3, 0.9), rgba(35, 154, 2, 0.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1') center/cover;
+            color: white;
+            padding: 80px 0;
+        }
+
+        .stat-item {
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-item i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .stat-item h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Mejorar carousel */
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.7);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .carousel-caption h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .carousel-caption p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Logos de clientes */
+        .client-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Estilos para la sección de artículos */
+        .articles-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .article-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: white;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .article-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+
+        .article-category {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .article-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .article-link i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .article-link:hover {
+            color: var(--primary);
+        }
+
+        .article-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Animación de entrada */
+        .article-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .article-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Contenedor de artículos con perspectiva */
+        .articles-row {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        /* Estilos base del article-card */
+        .article-card {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+
+        /* Efecto de oscurecimiento para todas las tarjetas cuando una tiene hover */
+        .articles-row:hover .article-card {
+            filter: brightness(0.7) blur(2px);
+            transform: scale(0.95) translateZ(-50px);
+        }
+
+        /* Restaurar y destacar la tarjeta con hover */
+        .articles-row:hover .article-card:hover {
+            filter: brightness(1) blur(0);
+            transform: scale(1.05) translateZ(50px);
+            z-index: 2;
+        }
+
+        /* Ajustar el contenedor para el efecto */
+        .articles-container {
+            overflow: visible;
+            padding: 30px 0;
+        }
+
+        /* Mejorar las sombras para el efecto 3D */
+        .article-card {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-card:hover {
+            box-shadow: 0 30px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Actualizar los estilos del footer */
+        .footer {
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 1.5rem 0;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.1) 50%,
+                rgba(255,255,255,0) 100%
+            );
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .footer .company-name {
+            font-weight: 500;
+            color: #ffffff;
+            padding: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .footer .developer {
+            position: relative;
+            color: #ffffff;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            padding: 0 5px;
+        }
+
+        .footer .separator {
+            color: rgba(255,255,255,0.3);
+            margin: 0 10px;
+        }
+
+        .footer .company-name:hover,
+        .footer .developer:hover {
+            opacity: 1;
+        }
+
+        /* Botón flotante de contacto */
+        .contact-float {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1200;
+        }
+
+        .contact-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #000;
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact-float a:hover {
+            transform: scale(1.1);
+            background: #333;
+        }
+
+        .contact-float .tooltip {
+            position: absolute;
+            right: 75px;
+            background: #000;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-float a:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Actualizar estilos del modal */
+        .modal-content {
+            background: #fff;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 20px 20px 0 0;
+            padding: 25px 30px;
+        }
+
+        .modal .btn-success {
+            background: #000;
+            border-color: #000;
+            color: white;
+        }
+
+        .modal .btn-success:hover {
+            background: #333;
+            border-color: #333;
+        }
+
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <i class="fas fa-user-circle"></i>
-            <h2>Sistema de Cotizaciones</h2>
-        </div>
-        <form id="loginForm" onsubmit="return login(event)">
-            <div class="mb-4">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="fas fa-user"></i>
-                    </span>
-                    <input type="text" class="form-control" id="usuario" 
-                           placeholder="Usuario" required>
-                </div>
-            </div>
-            <div class="mb-4">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                    <input type="password" class="form-control" id="password" 
-                           placeholder="Contraseña" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt me-2"></i>
-                Iniciar Sesión
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </form>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#top">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#clientes">Nuestros Clientes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+        <img src="https://i.postimg.cc/0j0vMQDC/LOGO-24-7-removebg-preview-1.png" alt="24/7">
+    </a>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-envelope me-2"></i>
+                        Contáctanos
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nameInput" placeholder="Nombre completo" required>
+                            <label for="nameInput">Nombre completo</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="emailInput" placeholder="Email" required>
+                            <label for="emailInput">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="phoneInput" placeholder="Teléfono">
+                            <label for="phoneInput">Teléfono</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" id="messageInput" placeholder="Mensaje" style="height: 120px" required></textarea>
+                            <label for="messageInput">Mensaje</label>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="login.js"></script>
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/51967879126" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="contact-float">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
+            <i class="fas fa-envelope"></i>
+            <span class="tooltip">Contáctanos</span>
+        </a>
+    </div>
+
+    <!-- Carousel -->
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://i.postimg.cc/NMSqPnvZ/11897.jpg" class="d-block w-100" alt="Seguridad">
+                <div class="carousel-caption">
+                    <h1>Seguridad Integral</h1>
+                    <p>Protegemos el futuro de su empresa</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.postimg.cc/7LZFP4xp/1070.jpg" class="d-block w-100" alt="Normas">
+                <div class="carousel-caption">
+                    <h1>Normas Internacionales</h1>
+                    <p>Implementación de estándares globales</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.postimg.cc/YCbPsP18/94578.jpg" class="d-block w-100" alt="Tecnología">
+                <div class="carousel-caption">
+                    <h1>Tecnología Avanzada</h1>
+                    <p>Sistemas de seguridad electrónica</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar el carousel
+            new bootstrap.Carousel(document.getElementById('mainCarousel'), {
+                interval: 5000
+            });
+
+            // Manejar el formulario de contacto
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Mensaje enviado correctamente');
+                bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+            });
+
+            // Scroll suave mejorado
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if(this.getAttribute('href') === '#top') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Agregar después del carousel -->
+    <section id="servicios" class="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones integrales de seguridad adaptadas a las necesidades de su empresa</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Consultoría en Seguridad Integral</h3>
+                        <p>Asesoramiento especializado para proteger su organización de manera efectiva y eficiente.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Normas Internacionales</h3>
+                        <p>Implementación y certificación de estándares internacionales de seguridad.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Desarrollo de Software</h3>
+                        <p>Soluciones tecnológicas personalizadas orientadas a la seguridad empresarial.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Seguridad Electrónica</h3>
+                        <p>Sistemas integrados de vigilancia y control de última generación.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar después de las tarjetas de servicios -->
+    <section class="stats-section py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="stat-item">
+                        <i class="fas fa-building mb-3"></i>
+                        <h2 class="counter">500</h2>
+                        <p>Clientes Satisfechos</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt mb-3"></i>
+                        <h2 class="counter">1000</h2>
+                        <p>Proyectos Completados</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-item">
+                        <i class="fas fa-award mb-3"></i>
+                        <h2 class="counter">15</h2>
+                        <p>Años de Experiencia</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-item">
+                        <i class="fas fa-users mb-3"></i>
+                        <h2 class="counter">50</h2>
+                        <p>Expertos en Seguridad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar la sección de artículos después de la sección de estadísticas -->
+    <section id="articulos" class="articles-section">
+        <div class="container articles-container">
+            <div class="section-title">
+                <h2>Últimas Publicaciones</h2>
+                <p>Mantente actualizado con las últimas noticias y tendencias en seguridad</p>
+            </div>
+            <div class="row articles-row">
+                <div class="col-md-4">
+                    <div class="article-card">
+                        <div class="article-image">
+                            <span class="article-category">Seguridad</span>
+                            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9" alt="Seguridad Empresarial">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-date">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                15 Marzo, 2024
+                            </div>
+                            <h3 class="article-title">Tendencias en Seguridad Empresarial 2024</h3>
+                            <p class="article-excerpt">
+                                Descubre las últimas tendencias y tecnologías en seguridad empresarial que están definiendo el futuro de la protección corporativa.
+                            </p>
+                            <a href="#" class="article-link">
+                                Leer más <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="article-card">
+                        <div class="article-image">
+                            <span class="article-category">Normativa</span>
+                            <img src="https://images.unsplash.com/photo-1507207611509-ec012433ff52" alt="Normativas">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-date">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                10 Marzo, 2024
+                            </div>
+                            <h3 class="article-title">Nuevas Normativas ISO en Seguridad</h3>
+                            <p class="article-excerpt">
+                                Análisis de las últimas actualizaciones en normativas internacionales y su impacto en la seguridad empresarial.
+                            </p>
+                            <a href="#" class="article-link">
+                                Leer más <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="article-card">
+                        <div class="article-image">
+                            <span class="article-category">Tecnología</span>
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b" alt="Tecnología">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-date">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                5 Marzo, 2024
+                            </div>
+                            <h3 class="article-title">Inteligencia Artificial en Seguridad</h3>
+                            <p class="article-excerpt">
+                                Cómo la IA está revolucionando los sistemas de seguridad y mejorando la protección empresarial.
+                            </p>
+                            <a href="#" class="article-link">
+                                Leer más <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar sección de clientes -->
+    <section id="clientes" class="clients-section py-5 bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Confían en Nosotros</h2>
+                <p>Empresas líderes que respaldan nuestra trayectoria</p>
+            </div>
+            <div class="clients-slider">
+                <!-- Aquí irían los logos de los clientes -->
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-2 col-6 mx-3 my-3">
+                        <img src="path-to-client-logo" alt="Cliente 1" class="img-fluid client-logo">
+                    </div>
+                    <!-- Más logos... -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar este script para la animación de números -->
+    <script>
+        // Animación de contador
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50; // Ajusta la velocidad
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    current = target;
+                }
+                element.textContent = Math.round(current);
+            }, 40);
+        }
+
+        // Iniciar animación cuando el elemento es visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        animateCounter(counter, parseInt(counter.textContent));
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.querySelector('.stats-section'));
+        });
+    </script>
+
+    <!-- Actualizar la estructura del footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content text-center">
+                <p class="mb-0">
+                    Desarrollado por 
+                    <span class="company-name">24/7 Consultores</span>
+                    <span class="separator">|</span>
+                    <span class="developer">C.Villavicencio</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
