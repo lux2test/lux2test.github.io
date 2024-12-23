@@ -722,17 +722,21 @@
             height: 100%;
             opacity: 0.4;
             animation: lineMove 30s linear infinite;
+            will-change: transform;
         }
 
         .overlay-lines line {
             stroke: white;
-            stroke-width: 0.5;
-            vector-effect: non-scaling-stroke;
+            stroke-width: 0.5px;
+            -webkit-shape-rendering: crispEdges;
+            shape-rendering: crispEdges;
         }
 
         .overlay-grid {
             stroke-dasharray: 5;
             opacity: 0.3;
+            stroke: white;
+            stroke-width: 0.5px;
         }
 
         @keyframes lineMove {
@@ -1043,6 +1047,68 @@
                 display: none;
             }
         }
+
+        /* Ajustes generales para móviles */
+        @media (max-width: 768px) {
+            /* Ajustes de servicios */
+            .services-section {
+                padding: 40px 0;
+            }
+
+            .service-card {
+                margin: 10px 0;
+                height: auto;
+                transform: none !important; /* Prevenir problemas con AOS */
+                opacity: 1 !important; /* Asegurar visibilidad */
+            }
+
+            /* Ajustes de estadísticas */
+            .stats-section {
+                padding: 40px 0;
+            }
+
+            .stat-item {
+                margin-bottom: 20px;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+
+            /* Ajustes de artículos */
+            .article-card {
+                transform: none !important;
+                opacity: 1 !important;
+            }
+
+            /* Ajustes generales de AOS */
+            [data-aos] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Ajustes específicos para pantallas muy pequeñas */
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title p {
+                font-size: 1rem;
+            }
+
+            .service-card {
+                padding: 20px;
+            }
+
+            .stat-item h2 {
+                font-size: 2rem;
+            }
+
+            .stat-item p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1252,13 +1318,13 @@
                 });
             });
 
-            // Inicializar AOS con configuración mejorada
+            // Inicializar AOS sin deshabilitar en móviles
             AOS.init({
                 duration: 1000,
                 easing: 'ease-out',
                 once: true,
-                offset: 100,
-                disable: 'mobile' // Deshabilitar en móviles si lo prefieres
+                offset: 50,
+                disable: false // Cambiar a false para que funcione en móviles
             });
 
             // Reiniciar AOS cuando cambie el slide del carousel
@@ -1363,28 +1429,28 @@
                 <p>Soluciones integrales de seguridad adaptadas a las necesidades de su empresa</p>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3 mb-4">
                     <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="fas fa-shield-alt"></i>
                         <h3>Consultoría en Seguridad Integral</h3>
                         <p>Asesoramiento especializado para proteger su organización de manera efectiva y eficiente.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3 mb-4">
                     <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                         <i class="fas fa-certificate"></i>
                         <h3>Normas Internacionales</h3>
                         <p>Implementación y certificación de estándares internacionales de seguridad.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3 mb-4">
                     <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-laptop-code"></i>
                         <h3>Desarrollo de Software</h3>
                         <p>Soluciones tecnológicas personalizadas orientadas a la seguridad empresarial.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3 mb-4">
                     <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                         <i class="fas fa-video"></i>
                         <h3>Seguridad Electrónica</h3>
@@ -1506,7 +1572,7 @@
         </div>
     </section>
 
-    <!-- Agregar sección de clientes -->
+    <!-- Agregar secci��n de clientes -->
     <section id="clientes" class="clients-section py-5 bg-light">
         <div class="container">
             <div class="section-title">
