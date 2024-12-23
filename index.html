@@ -849,6 +849,200 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* Cursor personalizado */
+        .cursor-dot,
+        .cursor-dot-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+        }
+
+        .cursor-dot-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(35, 154, 2, 0.2);
+        }
+
+        /* Mostrar cursores personalizados solo en desktop */
+        @media (pointer: fine) {
+            body {
+                cursor: none;
+            }
+
+            a, button {
+                cursor: none;
+            }
+
+            .cursor-dot.active,
+            .cursor-dot-outline.active {
+                opacity: 1;
+            }
+
+            .cursor-dot-outline.hover {
+                transform: translate(-50%, -50%) scale(1.5);
+                background-color: rgba(35, 154, 2, 0.1);
+                transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            }
+        }
+
+        /* Actualizar los media queries existentes y agregar nuevos */
+        @media (max-width: 768px) {
+            /* Ajustes del navbar */
+            .navbar-brand {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                padding: 10px;
+            }
+
+            .navbar-brand img {
+                height: 60px;
+            }
+
+            /* Ajustes del carousel */
+            .carousel-item {
+                height: 60vh;
+            }
+
+            .carousel-caption {
+                padding: 15px;
+                margin: 0 15px;
+            }
+
+            .carousel-caption h1 {
+                font-size: 2rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+
+            /* Ajustes de servicios */
+            .services-section {
+                padding: 50px 0;
+            }
+
+            .service-card {
+                margin: 10px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .section-title p {
+                font-size: 1rem;
+            }
+
+            /* Ajustes de estadísticas */
+            .stats-section {
+                padding: 40px 0;
+            }
+
+            .stat-item {
+                margin-bottom: 20px;
+                padding: 20px;
+            }
+
+            .stat-item h2 {
+                font-size: 2.5rem;
+            }
+
+            .stat-item p {
+                font-size: 1rem;
+            }
+
+            /* Ajustes de artículos */
+            .articles-section {
+                padding: 50px 0;
+            }
+
+            .article-card {
+                margin-bottom: 20px;
+            }
+
+            .article-image {
+                height: 200px;
+            }
+
+            /* Ajustes del footer */
+            .footer-content {
+                font-size: 0.9rem;
+            }
+
+            /* Desactivar efectos hover en móviles */
+            .service-card:hover,
+            .article-card:hover,
+            .stat-item:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Ajustes específicos para pantallas muy pequeñas */
+        @media (max-width: 576px) {
+            .carousel-caption h1 {
+                font-size: 1.5rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+
+            .service-card {
+                padding: 20px;
+            }
+
+            .service-card i {
+                font-size: 2.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .stat-item h2 {
+                font-size: 2rem;
+            }
+
+            .article-image {
+                height: 180px;
+            }
+        }
+
+        /* Ajustes para el menú móvil */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: white;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                margin-top: 10px;
+            }
+
+            .nav-link {
+                padding: 10px 15px !important;
+                margin: 5px 0;
+            }
+
+            .nav-item::before {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1071,6 +1265,93 @@
             document.getElementById('mainCarousel').addEventListener('slid.bs.carousel', function () {
                 AOS.refresh();
             });
+
+            // Cursor personalizado
+            const cursor = {
+                dot: document.querySelector('.cursor-dot'),
+                dotOutline: document.querySelector('.cursor-dot-outline'),
+                cursorVisible: true,
+                cursorEnlarged: false,
+                
+                endX: window.innerWidth / 2,
+                endY: window.innerHeight / 2,
+                dotX: window.innerWidth / 2,
+                dotY: window.innerHeight / 2,
+                outlineX: window.innerWidth / 2,
+                outlineY: window.innerHeight / 2,
+                
+                init: function() {
+                    this.setupEventListeners();
+                    this.animateDotOutline();
+                    
+                    // Mostrar cursores
+                    setTimeout(() => {
+                        this.dot.classList.add('active');
+                        this.dotOutline.classList.add('active');
+                    }, 100);
+                },
+                
+                setupEventListeners: function() {
+                    document.addEventListener('mousemove', e => {
+                        this.cursorVisible = true;
+                        this.endX = e.clientX;
+                        this.endY = e.clientY;
+                        this.dot.style.top = this.endY + 'px';
+                        this.dot.style.left = this.endX + 'px';
+                    });
+                    
+                    document.addEventListener('mouseenter', e => {
+                        this.cursorVisible = true;
+                        this.toggleCursorVisibility();
+                    });
+                    
+                    document.addEventListener('mouseleave', e => {
+                        this.cursorVisible = false;
+                        this.toggleCursorVisibility();
+                    });
+                    
+                    document.querySelectorAll('a, button, .service-card, .article-card').forEach(el => {
+                        el.addEventListener('mouseover', () => {
+                            this.cursorEnlarged = true;
+                            this.toggleCursorSize();
+                        });
+                        el.addEventListener('mouseout', () => {
+                            this.cursorEnlarged = false;
+                            this.toggleCursorSize();
+                        });
+                    });
+                },
+                
+                animateDotOutline: function() {
+                    this.outlineX += (this.endX - this.outlineX) / 8;
+                    this.outlineY += (this.endY - this.outlineY) / 8;
+                    this.dotOutline.style.top = this.outlineY + 'px';
+                    this.dotOutline.style.left = this.outlineX + 'px';
+                    
+                    requestAnimationFrame(this.animateDotOutline.bind(this));
+                },
+                
+                toggleCursorVisibility: function() {
+                    if (this.cursorVisible) {
+                        this.dot.style.opacity = 1;
+                        this.dotOutline.style.opacity = 1;
+                    } else {
+                        this.dot.style.opacity = 0;
+                        this.dotOutline.style.opacity = 0;
+                    }
+                },
+                
+                toggleCursorSize: function() {
+                    if (this.cursorEnlarged) {
+                        this.dotOutline.classList.add('hover');
+                    } else {
+                        this.dotOutline.classList.remove('hover');
+                    }
+                }
+            };
+
+            // Inicializar cursor personalizado
+            cursor.init();
         });
     </script>
 
@@ -1291,6 +1572,10 @@
             </div>
         </div>
     </footer>
+
+    <!-- Agregar al final del body, antes del cierre -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-dot-outline"></div>
 
 </body>
 </html>
