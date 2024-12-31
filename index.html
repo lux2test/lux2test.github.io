@@ -3,1914 +3,766 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>24/7 Seguridad Integral</title>
+    <title>Cronología de Fiscalización</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Anaheim&display=swap" rel="stylesheet">
-    <!-- Agregar AOS (Animate On Scroll) CSS y JS en el head -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Agregar los estilos de Swiper en el head -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #1b5d03;
-            --secondary: #239a02;
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --warning: #fbbc05;
+            --danger: #ea4335;
         }
 
         body {
-            font-family: 'Anaheim', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            background-image: 
+                linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 10px);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
         }
 
-        /* Navbar */
-        .navbar {
-            background: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1200;
-        }
-
-        .nav-link {
-            background: transparent;
-            color: var(--primary) !important;
-            padding: 12px 25px !important;
-            margin: 0 5px;
-            position: relative;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--secondary);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(27, 93, 3, 0.05);
-            color: var(--secondary) !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -5px;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 15px;
-            background: rgba(27, 93, 3, 0.2);
-        }
-
-        .nav-item:last-child::before {
-            display: none;
-        }
-
-        /* Carousel */
-        .carousel {
-            margin-top: 0;
-        }
-
-        .carousel-item {
-            height: 100vh;
-        }
-
-        .carousel-item img {
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
-        }
-
-        .carousel-caption {
-            background: rgba(0,0,0,0.6);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Modal */
-        .modal-header {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-success {
-            background: var(--secondary);
-            border-color: var(--secondary);
-        }
-
-        .btn-success:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1100;
-        }
-
-        .whatsapp-float a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            color: white;
-            border-radius: 50%;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-        }
-
-        .whatsapp-float a:hover {
-            transform: scale(1.1);
-        }
-
-        /* Logo flotante */
-        .navbar-brand {
-            position: fixed;
-            top: 20px;
-            left: 50px;
-            padding: 20px 30px;
+        .container {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            z-index: 1300;
-        }
-
-        .navbar-brand img {
-            height: 100px;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
-        }
-
-        /* Ajustar el espacio en el navbar para el logo */
-        .navbar > .container {
-            padding-left: 200px;
-        }
-
-        /* Ajustes responsive */
-        @media (max-width: 991px) {
-            .navbar-brand {
-                position: fixed;
-                top: 10px;
-                left: 20px;
-                padding: 10px 20px;
-            }
-
-            .navbar-brand img {
-                height: 60px;
-            }
-
-            .navbar > .container {
-                padding-left: 150px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .navbar-brand {
-                left: 10px;
-                padding: 8px 15px;
-            }
-
-            .navbar-brand img {
-                height: 50px;
-            }
-
-            .navbar > .container {
-                padding-left: 120px;
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: none;
-                padding: 10px;
-            }
-
-            .navbar-brand img {
-                height: 60px;
-            }
-
-            .carousel {
-                margin-top: 76px;
-            }
-
-            .carousel-item {
-                height: 500px;
-            }
-        }
-
-        /* Agregar estilos para las tarjetas de servicios */
-        .services-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            height: 100%;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .service-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .service-card p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .section-title p {
-            color: #666;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Estilos modernos para el modal */
-        .modal-content {
-            border: none;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border: none;
-            padding: 25px 30px;
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        .modal-header .btn-close {
-            background-color: white;
-            opacity: 1;
-            padding: 8px;
-            margin: 0;
-        }
-
-        .modal-body {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            background: #f8f9fa;
-        }
-
-        .form-control {
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 12px 20px;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 0.2rem rgba(35, 154, 2, 0.15);
-        }
-
-        .form-control::placeholder {
-            color: #adb5bd;
-        }
-
-        .modal .btn-success {
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .modal .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(35, 154, 2, 0.3);
-        }
-
-        /* Animación del modal */
-        .modal.fade .modal-dialog {
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.show .modal-dialog {
-            transform: scale(1);
-        }
-
-        /* Estilos para estadísticas */
-        .stats-section {
-            background: linear-gradient(rgba(27, 93, 3, 0.9), rgba(35, 154, 2, 0.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1') center/cover;
-            color: white;
-            padding: 80px 0;
-        }
-
-        .stat-item {
-            padding: 30px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .stat-item h2 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .stat-item p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Mejorar carousel */
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.7);
-            border-left: 5px solid var(--secondary);
-        }
-
-        .carousel-caption h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .carousel-caption p {
-            font-size: 1.5rem;
+            margin-top: 30px;
             margin-bottom: 30px;
         }
 
-        /* Logos de clientes */
-        .client-logo {
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-            max-height: 80px;
-            object-fit: contain;
-        }
-
-        .client-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        /* Estilos para la sección de artículos */
-        .articles-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            overflow: hidden;
-        }
-
-        .articles-slider {
-            padding: 50px 0;
-            overflow: visible;
-        }
-
-        .swiper-slide {
-            transition: all 0.3s ease;
-            opacity: 0.4;
-            transform: scale(0.8);
-        }
-
-        .swiper-slide-active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: var(--primary);
-            background: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-            font-size: 20px;
-        }
-
-        .article-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .swiper-slide-active .article-card {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .article-image {
-            position: relative;
-            height: 250px;
-            overflow: hidden;
-        }
-
-        .article-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .article-card:hover .article-image img {
-            transform: scale(1.1);
-        }
-
-        .article-category {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--secondary);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            z-index: 1;
-        }
-
-        .article-content {
-            padding: 25px;
-        }
-
-        .article-date {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .article-title {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+        h1 {
+            color: #1a73e8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             font-weight: 600;
-            line-height: 1.3;
-        }
-
-        .article-excerpt {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .article-link {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .article-link i {
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .article-link:hover {
-            color: var(--primary);
-        }
-
-        .article-link:hover i {
-            transform: translateX(5px);
-        }
-
-        /* Animación de entrada */
-        .article-card {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .article-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .article-card:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        /* Contenedor de artículos con perspectiva */
-        .articles-row {
-            perspective: 1000px;
             position: relative;
+            padding-bottom: 15px;
         }
 
-        /* Estilos base del article-card */
-        .article-card {
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            z-index: 1;
-        }
-
-        /* Efecto de oscurecimiento para todas las tarjetas cuando una tiene hover */
-        .articles-row:hover .article-card {
-            filter: brightness(0.7) blur(2px);
-            transform: scale(0.95) translateZ(-50px);
-        }
-
-        /* Restaurar y destacar la tarjeta con hover */
-        .articles-row:hover .article-card:hover {
-            filter: brightness(1) blur(0);
-            transform: scale(1.05) translateZ(50px);
-            z-index: 2;
-        }
-
-        /* Ajustar el contenedor para el efecto */
-        .articles-container {
-            overflow: visible;
-            padding: 30px 0;
-        }
-
-        /* Mejorar las sombras para el efecto 3D */
-        .article-card {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .article-card:hover {
-            box-shadow: 0 30px 50px rgba(0,0,0,0.2);
-        }
-
-        /* Actualizar los estilos del footer */
-        .footer {
-            background: #1a1a1a;
-            color: #ffffff;
-            padding: 1.5rem 0;
-            position: relative;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .footer::before {
+        h1:after {
             content: '';
             position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a73e8, #34a853);
+            border-radius: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
             top: 0;
-            left: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
             width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, 
-                rgba(255,255,255,0) 0%,
-                rgba(255,255,255,0.1) 50%,
-                rgba(255,255,255,0) 100%
-            );
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
         }
 
-        .footer-content {
-            position: relative;
-            z-index: 2;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            font-weight: 300;
-            opacity: 0.9;
-        }
-
-        .footer .company-name {
-            font-weight: 500;
-            color: #ffffff;
-            padding: 0 5px;
-            transition: all 0.3s ease;
-        }
-
-        .footer .developer {
-            position: relative;
-            color: #ffffff;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            padding: 0 5px;
-        }
-
-        .footer .separator {
-            color: rgba(255,255,255,0.3);
-            margin: 0 10px;
-        }
-
-        .footer .company-name:hover,
-        .footer .developer:hover {
+        .timeline-item.visible {
             opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Botón flotante de contacto */
-        .contact-float {
+        .timeline-content {
             position: relative;
-            margin-left: 15px;
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
         }
 
-        .contact-float a {
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            transform-origin: left center;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+            transform-origin: right center;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .timeline-date {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-date i {
+            color: var(--warning);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 20px;
+            left: 50%;
+            margin-left: -10px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+            background: var(--primary);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: #000;
             color: white;
-            border-radius: 50%;
-            font-size: 20px;
-            text-decoration: none;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            top: 10px;
             transition: all 0.3s ease;
         }
 
-        .contact-float a:hover {
-            transform: scale(1.1);
-            background: #333;
+        .timeline-item:hover .timeline-icon {
+            transform: rotate(360deg);
         }
 
-        .contact-float .tooltip {
-            position: absolute;
-            right: 75px;
-            background: #000;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+        .timeline-item:nth-child(odd) .timeline-icon {
+            right: -60px;
         }
 
-        .contact-float a:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
+        .timeline-item:nth-child(even) .timeline-icon {
+            left: -60px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 40px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            .timeline-dot {
+                left: 40px;
+            }
+
+            .timeline-icon {
+                left: 20px !important;
+            }
         }
 
         /* Actualizar estilos del modal */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+
         .modal-content {
-            background: #fff;
-            border-radius: 20px;
+            border-radius: 15px;
             border: none;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
         }
 
         .modal-header {
-            background: #000;
+            background: #1a73e8;
             color: white;
-            border: none;
-            border-radius: 20px 20px 0 0;
-            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
         }
 
-        .modal .btn-success {
-            background: #000;
-            border-color: #000;
-            color: white;
+        .modal-body {
+            padding: 20px;
         }
 
-        .modal .btn-success:hover {
-            background: #333;
-            border-color: #333;
+        .btn-close {
+            background-color: white !important;
         }
 
-        .form-control:focus {
-            border-color: #000;
-            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
         }
 
-        /* Efectos del banner */
-        .carousel-item {
-            position: relative;
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            cursor: pointer;
+        }
+
+        /* Mejorar la visibilidad del modal */
+        .modal-dialog {
+            max-width: 600px;
+        }
+
+        .modal-body {
+            padding: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .event-description {
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        .event-description ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .modal-body {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .horizontal-timeline-wrapper {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .horizontal-timeline {
+            width: 100%;
             overflow: hidden;
         }
 
-        .carousel-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        .timeline-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .overlay-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.4;
-            animation: lineMove 30s linear infinite;
-            will-change: transform;
-        }
-
-        .overlay-lines line {
-            stroke: white;
-            stroke-width: 0.5px;
-            -webkit-shape-rendering: crispEdges;
-            shape-rendering: crispEdges;
-        }
-
-        .overlay-grid {
-            stroke-dasharray: 5;
-            opacity: 0.3;
-            stroke: white;
-            stroke-width: 0.5px;
-        }
-
-        @keyframes lineMove {
-            0% { transform: translateX(-50%) rotate(0deg); }
-            100% { transform: translateX(50%) rotate(360deg); }
-        }
-
-        /* Ajustar las animaciones de entrada para cada sección */
-        .service-card {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .service-card.aos-animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stat-item {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.8s ease;
-        }
-
-        .stat-item.aos-animate {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .article-card {
-            opacity: 0;
-            transform: translateY(-50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .article-card.aos-animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Ajustar el overlay para todas las imágenes del carousel */
-        .carousel-item {
-            position: relative;
-        }
-
-        .carousel-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .carousel-caption {
-            z-index: 2; /* Asegurar que el texto esté sobre el overlay */
-        }
-
-        .overlay-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.4;
-        }
-
-        /* Mejorar las animaciones de las publicaciones */
-        [data-aos="fade-down"] {
-            transform: translateY(-100px);
-            opacity: 0;
-            transition-property: transform, opacity;
-        }
-
-        [data-aos="fade-down"].aos-animate {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Ajustar los delays de las animaciones */
-        .article-card {
-            transition-duration: 1000ms !important;
-        }
-
-        .article-card:nth-child(1) {
-            transition-delay: 200ms !important;
-        }
-
-        .article-card:nth-child(2) {
-            transition-delay: 400ms !important;
-        }
-
-        .article-card:nth-child(3) {
-            transition-delay: 600ms !important;
-        }
-
-        /* Estilos para la animación del texto del carousel */
-        .carousel-caption {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.8s ease-out;
-        }
-
-        .carousel-item.active .carousel-caption {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Asegurar que el texto esté siempre visible */
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.7);
-            border-left: 5px solid var(--secondary);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Cursor personalizado */
-        .cursor-dot,
-        .cursor-dot-outline {
-            pointer-events: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease-in-out;
-            z-index: 9999;
-        }
-
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--secondary);
-        }
-
-        .cursor-dot-outline {
+        .nav-button {
+            background: var(--primary);
+            border: none;
+            color: white;
             width: 40px;
             height: 40px;
-            background-color: rgba(35, 154, 2, 0.2);
-        }
-
-        /* Mostrar cursores personalizados solo en desktop */
-        @media (pointer: fine) {
-            body {
-                cursor: none;
-            }
-
-            a, button {
-                cursor: none;
-            }
-
-            .cursor-dot.active,
-            .cursor-dot-outline.active {
-                opacity: 1;
-            }
-
-            .cursor-dot-outline.hover {
-                transform: translate(-50%, -50%) scale(1.5);
-                background-color: rgba(35, 154, 2, 0.1);
-                transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-            }
-        }
-
-        /* Actualizar los media queries existentes y agregar nuevos */
-        @media (max-width: 768px) {
-            /* Ajustes del navbar */
-            .navbar-brand {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: none;
-                padding: 10px;
-            }
-
-            .navbar-brand img {
-                height: 60px;
-            }
-
-            /* Ajustes del carousel */
-            .carousel-item {
-                height: 60vh;
-            }
-
-            .carousel-caption {
-                padding: 15px;
-                margin: 0 15px;
-            }
-
-            .carousel-caption h1 {
-                font-size: 2rem;
-            }
-
-            .carousel-caption p {
-                font-size: 1rem;
-            }
-
-            /* Ajustes de servicios */
-            .services-section {
-                padding: 50px 0;
-            }
-
-            .service-card {
-                margin: 10px 0;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .section-title p {
-                font-size: 1rem;
-            }
-
-            /* Ajustes de estadísticas */
-            .stats-section {
-                padding: 40px 0;
-            }
-
-            .stat-item {
-                margin-bottom: 20px;
-                padding: 20px;
-            }
-
-            .stat-item h2 {
-                font-size: 2.5rem;
-            }
-
-            .stat-item p {
-                font-size: 1rem;
-            }
-
-            /* Ajustes de artículos */
-            .articles-section {
-                padding: 50px 0;
-            }
-
-            .article-card {
-                margin-bottom: 20px;
-            }
-
-            .article-image {
-                height: 200px;
-            }
-
-            /* Ajustes del footer */
-            .footer-content {
-                font-size: 0.9rem;
-            }
-
-            /* Desactivar efectos hover en móviles */
-            .service-card:hover,
-            .article-card:hover,
-            .stat-item:hover {
-                transform: none;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-        }
-
-        /* Ajustes específicos para pantallas muy pequeñas */
-        @media (max-width: 576px) {
-            .carousel-caption h1 {
-                font-size: 1.5rem;
-            }
-
-            .carousel-caption p {
-                font-size: 0.9rem;
-            }
-
-            .service-card {
-                padding: 20px;
-            }
-
-            .service-card i {
-                font-size: 2.5rem;
-            }
-
-            .service-card h3 {
-                font-size: 1.2rem;
-            }
-
-            .stat-item h2 {
-                font-size: 2rem;
-            }
-
-            .stat-item p {
-                font-size: 0.9rem;
-            }
-
-            .article-image {
-                height: 180px;
-            }
-        }
-
-        /* Ajustes para el menú móvil */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                padding: 15px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                margin-top: 10px;
-                z-index: 1250;
-            }
-
-            .nav-link {
-                text-align: center;
-            }
-        }
-
-        /* Ajustes generales para móviles */
-        @media (max-width: 768px) {
-            /* Ajustes de servicios */
-            .services-section {
-                padding: 40px 0;
-            }
-
-            .service-card {
-                margin: 10px 0;
-                height: auto;
-                transform: none !important; /* Prevenir problemas con AOS */
-                opacity: 1 !important; /* Asegurar visibilidad */
-            }
-
-            /* Ajustes de estadísticas */
-            .stats-section {
-                padding: 40px 0;
-            }
-
-            .stat-item {
-                margin-bottom: 20px;
-                transform: none !important;
-                opacity: 1 !important;
-            }
-
-            /* Ajustes de artículos */
-            .article-card {
-                transform: none !important;
-                opacity: 1 !important;
-            }
-
-            /* Ajustes generales de AOS */
-            [data-aos] {
-                opacity: 1 !important;
-                transform: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* Ajustes específicos para pantallas muy pequeñas */
-        @media (max-width: 576px) {
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-
-            .section-title p {
-                font-size: 1rem;
-            }
-
-            .service-card {
-                padding: 20px;
-            }
-
-            .stat-item h2 {
-                font-size: 2rem;
-            }
-
-            .stat-item p {
-                font-size: 0.9rem;
-            }
-        }
-
-        .navbar-toggler {
-            border: 2px solid var(--primary);
-            padding: 8px;
-            margin-right: 100px;
-            background: white;
-            z-index: 1300;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-            outline: none;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(27, 93, 3, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        @media (max-width: 991px) {
-            .navbar-brand {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: none;
-                padding: 10px;
-                background: transparent;
-                box-shadow: none;
-            }
-
-            .navbar-brand img {
-                height: 50px;
-            }
-
-            .navbar-collapse {
-                background: white;
-                padding: 15px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                margin-top: 10px;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                z-index: 1250;
-            }
-
-            /* Ajustar el contenedor del navbar para móviles */
-            .navbar > .container {
-                padding-right: 120px; /* Espacio para el botón de contacto */
-            }
-        }
-
-        /* Ajustes del navbar y botón hamburguesa */
-        .navbar > .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-toggler {
-            border: 2px solid var(--primary);
-            padding: 8px;
-            background: white;
-            margin-left: auto;
-            z-index: 1300;
-        }
-
-        /* Estilos del botón flotante de contacto */
-        .contact-float {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 1200;
-        }
-
-        .contact-float a {
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: #000;
-            color: white;
-            border-radius: 50%;
-            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--secondary);
+        }
+
+        .nav-items-container {
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item {
+            min-width: 150px;
             text-decoration: none;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            background: #f8f9fa;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
-        .contact-float a:hover {
-            transform: scale(1.1);
-            background: #333;
+        .nav-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
         }
 
-        /* Ajustes responsive */
-        @media (max-width: 991px) {
-            .navbar-brand {
-                flex: 0 0 auto;
-            }
-
-            .navbar-toggler {
-                margin-right: 80px; /* Espacio para el botón flotante */
-            }
-
-            .navbar-collapse {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                padding: 15px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                z-index: 1250;
-            }
-        }
-
-        .articles-slider {
-            padding: 50px 0;
-            width: 100%;
-            height: 600px; /* Ajustar altura según necesidad */
-        }
-
-        .swiper-slide {
-            width: 350px; /* Ancho fijo para las tarjetas */
-            transition: all 0.3s ease;
-        }
-
-        .swiper-slide-active {
-            transform: scale(1.1);
-            z-index: 2;
-        }
-
-        .swiper-slide-prev,
-        .swiper-slide-next {
-            opacity: 0.7;
-            transform: scale(0.9);
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
+        .nav-item .date {
+            font-size: 0.9rem;
             color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-item:hover .date {
+            color: white;
+        }
+
+        .nav-item .title {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container d-flex align-items-center justify-content-between">
-            <a class="navbar-brand" href="#">
-                <img src="https://i.postimg.cc/0j0vMQDC/LOGO-24-7-removebg-preview-1.png" alt="24/7">
+    <div class="container">
+        <div class="navigation-button">
+            <a href="timeline_coactiva.html" class="btn btn-primary">
+                <i class="fas fa-arrow-right"></i>
+                Ver Proceso Coactivo
             </a>
-            <div class="d-flex align-items-center">
-                <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="contact-float d-flex">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+        </div>
+        <h1 class="text-center my-5">Fiscalización IGV 2022</h1>
+        <div class="horizontal-timeline-wrapper mb-5">
+            <div class="horizontal-timeline">
+                <div class="timeline-nav">
+                    <button class="nav-button prev-button">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="nav-items-container">
+                        <div class="nav-items">
+                            <a href="#event-0" class="nav-item">
+                                <div class="date">14 Ago</div>
+                                <div class="title">Inicio Fiscalización</div>
+                            </a>
+                            <a href="#event-1" class="nav-item">
+                                <div class="date">14 Ago</div>
+                                <div class="title">Primer Requerimiento</div>
+                            </a>
+                            <a href="#event-2" class="nav-item">
+                                <div class="date">3 Sep</div>
+                                <div class="title">Carta Respuesta</div>
+                            </a>
+                            <a href="#event-3" class="nav-item">
+                                <div class="date">5 Sep</div>
+                                <div class="title">Resultado Requerimiento</div>
+                            </a>
+                            <a href="#event-4" class="nav-item">
+                                <div class="date">16 Sep</div>
+                                <div class="title">GOES Remite Información</div>
+                            </a>
+                            <a href="#event-5" class="nav-item">
+                                <div class="date">17 Sep</div>
+                                <div class="title">GOES Acompaña Documentación</div>
+                            </a>
+                            <a href="#event-6" class="nav-item">
+                                <div class="date">23 Sep</div>
+                                <div class="title">Nuevo Requerimiento</div>
+                            </a>
+                            <a href="#event-7" class="nav-item">
+                                <div class="date">30 Sep</div>
+                                <div class="title">Resultado Requerimiento</div>
+                            </a>
+                            <a href="#event-8" class="nav-item">
+                                <div class="date">1 Oct</div>
+                                <div class="title">Nuevo Requerimiento</div>
+                            </a>
+                            <a href="#event-9" class="nav-item">
+                                <div class="date">10 Oct</div>
+                                <div class="title">Solicitud Prórroga</div>
+                            </a>
+                            <a href="#event-10" class="nav-item">
+                                <div class="date">11 Oct</div>
+                                <div class="title">Deniega Prórroga</div>
+                            </a>
+                            <a href="#event-11" class="nav-item">
+                                <div class="date">15 Oct</div>
+                                <div class="title">Carta SUNAT</div>
+                            </a>
+                            <a href="#event-12" class="nav-item">
+                                <div class="date">16 Oct</div>
+                                <div class="title">Nuevo Requerimiento</div>
+                            </a>
+                            <a href="#event-13" class="nav-item">
+                                <div class="date">23 Oct</div>
+                                <div class="title">Resultado Requerimiento</div>
+                            </a>
+                            <a href="#event-14" class="nav-item">
+                                <div class="date">24 Oct</div>
+                                <div class="title">Prórroga No Presentada</div>
+                            </a>
+                            <a href="#event-15" class="nav-item">
+                                <div class="date">24 Oct</div>
+                                <div class="title">Nuevo Requerimiento</div>
+                            </a>
+                            <a href="#event-16" class="nav-item">
+                                <div class="date">6 Nov</div>
+                                <div class="title">Respuesta Requerimiento</div>
+                            </a>
+                            <a href="#event-17" class="nav-item">
+                                <div class="date">19 Nov</div>
+                                <div class="title">Resultado Final</div>
+                            </a>
+                            <a href="#event-18" class="nav-item">
+                                <div class="date">29 Nov</div>
+                                <div class="title">Resoluciones Finales</div>
+                            </a>
+                        </div>
+                    </div>
+                    <button class="nav-button next-button">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#top">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#servicios">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#clientes">Nuestros Clientes</a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
+        <div class="timeline" id="timeline"></div>
+    </div>
 
-    <!-- Contact Modal -->
-    <div class="modal fade" id="contactModal" tabindex="-1">
+    <!-- Modal Template -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-envelope me-2"></i>
-                        Contáctanos
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="contactForm">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nameInput" placeholder="Nombre completo" required>
-                            <label for="nameInput">Nombre completo</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="emailInput" placeholder="Email" required>
-                            <label for="emailInput">Email</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="tel" class="form-control" id="phoneInput" placeholder="Teléfono">
-                            <label for="phoneInput">Teléfono</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <textarea class="form-control" id="messageInput" placeholder="Mensaje" style="height: 120px" required></textarea>
-                            <label for="messageInput">Mensaje</label>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">
-                            <i class="fas fa-paper-plane me-2"></i>
-                            Enviar Mensaje
-                        </button>
-                    </form>
+                    <div class="event-date mb-3"></div>
+                    <div class="event-description"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- WhatsApp Button -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/51967879126" target="_blank">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-    </div>
-
-    <!-- Contact Modal -->
-    <div class="contact-float">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
-            <i class="fas fa-envelope"></i>
-            <span class="tooltip">Contáctanos</span>
-        </a>
-    </div>
-
-    <!-- Carousel -->
-    <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://i.postimg.cc/NMSqPnvZ/11897.jpg" class="d-block w-100" alt="Seguridad">
-                <div class="carousel-overlay">
-                    <svg class="overlay-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <pattern id="grid1" width="10" height="10" patternUnits="userSpaceOnUse" class="overlay-grid">
-                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white"/>
-                        </pattern>
-                        <rect width="100" height="100" fill="url(#grid1)"/>
-                        <line x1="0" y1="0" x2="100" y2="100" stroke="white"/>
-                        <line x1="100" y1="0" x2="0" y2="100" stroke="white"/>
-                        <line x1="50" y1="0" x2="50" y2="100" stroke="white"/>
-                        <line x1="0" y1="50" x2="100" y2="50" stroke="white"/>
-                    </svg>
-                </div>
-                <div class="carousel-caption" data-aos="fade-left">
-                    <h1>Seguridad Integral</h1>
-                    <p>Protegemos el futuro de su empresa</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://i.postimg.cc/7LZFP4xp/1070.jpg" class="d-block w-100" alt="Normas">
-                <div class="carousel-overlay">
-                    <svg class="overlay-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <pattern id="grid2" width="10" height="10" patternUnits="userSpaceOnUse" class="overlay-grid">
-                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white"/>
-                        </pattern>
-                        <rect width="100" height="100" fill="url(#grid2)"/>
-                        <line x1="0" y1="0" x2="100" y2="100" stroke="white"/>
-                        <line x1="100" y1="0" x2="0" y2="100" stroke="white"/>
-                        <line x1="50" y1="0" x2="50" y2="100" stroke="white"/>
-                        <line x1="0" y1="50" x2="100" y2="50" stroke="white"/>
-                    </svg>
-                </div>
-                <div class="carousel-caption" data-aos="fade-left">
-                    <h1>Normas Internacionales</h1>
-                    <p>Implementación de estándares globales</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://i.postimg.cc/YCbPsP18/94578.jpg" class="d-block w-100" alt="Tecnología">
-                <div class="carousel-overlay">
-                    <svg class="overlay-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <pattern id="grid3" width="10" height="10" patternUnits="userSpaceOnUse" class="overlay-grid">
-                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white"/>
-                        </pattern>
-                        <rect width="100" height="100" fill="url(#grid3)"/>
-                        <line x1="0" y1="0" x2="100" y2="100" stroke="white"/>
-                        <line x1="100" y1="0" x2="0" y2="100" stroke="white"/>
-                        <line x1="50" y1="0" x2="50" y2="100" stroke="white"/>
-                        <line x1="0" y1="50" x2="100" y2="50" stroke="white"/>
-                    </svg>
-                </div>
-                <div class="carousel-caption" data-aos="fade-left">
-                    <h1>Tecnología Avanzada</h1>
-                    <p>Sistemas de seguridad electrónica</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        const events = [
+            {
+                date: '14 de Agosto',
+                title: 'Inicio de la Fiscalización de IGV',
+                icon: 'fa-solid fa-flag-checkered',
+                description: `Con fecha 14 de agosto del 2024, mediante carta 240021952905-01 SUNAT – se da inicio de la fiscalización de IGV año 2022, con requerimiento N°. 022124004575 de fecha 14 de agosto del 2024.
+
+La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ejercicio de su función fiscalizadora realiza inspecciones, investigaciones y el control del cumplimiento de obligaciones tributarias y/u obligaciones formales, mediante programas de fiscalización.`
+            },
+            {
+                date: '14 de Agosto',
+                title: 'Primer Requerimiento',
+                icon: 'fa-solid fa-file-lines',
+                description: `Con fecha 14 de agosto del 2024, se da el primer requerimiento N° 0221240004575, en el cual se requiere:
+
+● Archivo en formato texto (txt) de los libros de caja y bancos, libro diario o libro diario de formato simplificado, libro mayor, libro de inventario y balances, registro de compras, registro activos fijos y registro de consignaciones.
+
+● Si lleva la contabilidad en sistema computarizado se requiere copia de la base de datos en formato Excel de los libros de caja y bancos, libro diario o libro diario de formato simplificado, libro mayor, libro de inventario y balances, registro de compras, registro activos fijos y registro de consignaciones.
+
+● Análisis mensual de la determinación del IGV.
+
+● Fecha de presentación el día 03 de septiembre del 2024.`
+            },
+            {
+                date: '3 de Septiembre',
+                title: 'Carta de Respuesta',
+                icon: 'fa-solid fa-envelope',
+                description: 'Se cumplió con dar respuesta al requerimiento en el plazo establecido'
+            },
+            {
+                date: '5 de Septiembre',
+                title: 'Se Notifica Resultado de Requerimiento',
+                icon: 'fa-solid fa-clipboard-check',
+                description: `Con fecha 05 de Setiembre del 2024, SUNAT notifica el resultado del requerimiento N°. 0221240004575, en la cual concluye que:
+
+● Se ha encontrado información parcial por lo que se había infringido en el punto 1 y 2 del requerimiento; el numeral 5 del artículo 177 del TUO del código tributario aprobado por el decreto supremo 133-2013-F
+
+● Al vencimiento del plazo otorgado, el contribuyente cumplió de manera parcial con proporcionar y/o presentar la documentación y/o la información solicitada mediante el Requerimiento N° 0221240004575, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 03/09/2024.`
+            },
+            {
+                date: '16 de Septiembre',
+                title: 'GOES Remite Información Adicional de Tributos 0100-IGV',
+                icon: 'fa-solid fa-file-export',
+                description: `El 16 de septiembre GOES remite información adicional de tributo 0100-IGV del periodo 2022-01 hasta el 2022-12 relacionada con la fiscalización del crédito fiscal de adquisiciones y compras de dicho periodo, contradicción el documento del punto 5`
+            },
+            {
+                date: '17 de Septiembre',
+                title: 'GOES Acompaña Documentación Relacionada a la Carta de Requerimiento 0221240004575',
+                icon: 'fa-solid fa-folder-open',
+                description: 'El 17 de septiembre del 2024 GOES se acompaña documentación relacionado a la carta de requerimiento n°. 0221240004575'
+            },
+            {
+                date: '23 de Septiembre',
+                title: 'Nuevo Requerimiento Emitido 0222240011388',
+                icon: 'fa-solid fa-file-circle-plus',
+                description: `Con fecha 23 de Septiembre del 2024, se emite NUEVO requerimiento N° 0222240011388, en donde se reitera:
+
+● Archivos en formato texto (txt) del Registro de Compras llevado de manera electrónica (SLE-PLE) de acuerdo a la Resolución de Superintendencia N 286-2009/SUNAT y normas modificatorias, correspondiente a los períodos 01/2022 a 12/2022.
+
+● Una copia de la base de datos, en formato Excel (xls o xlsx) o texto (txt) así como copias en archivo PDF o PDF/A del original de los folios referidos a la Legalización de Libro Diario, Libro Mayor, Libro de Inventarios y Balances, Registro de Activos Fijos y Registro de Consignaciones, por llevar la contabilidad en sistema computarizado.
+
+● Fecha de vencimiento de respuesta 27 de septiembre del 2024.`
+            },
+            {
+                date: '30 de Septiembre',
+                title: 'Se Emite Resultado del Requerimiento 0222240011388',
+                icon: 'fa-solid fa-file-circle-check',
+                description: `Con fecha 30 de Setiembre del 2024, se emite el resultado de requerimiento N° 0222240011388, que concluye que:
+
+● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada, de manera reiterada, mediante el Requerimiento N° 0222240011388, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 27/09/2024.`
+            },
+            {
+                date: '1 de Octubre',
+                title: 'Se Emite Requerimiento 0222240011724',
+                icon: 'fa-solid fa-file-circle-exclamation',
+                description: `Con fecha 01 de octubre del 2024, se emite el requerimiento N° 0222240011724, mediante el cual se le requiere:
+
+● Sustentar el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 del presente Requerimiento correspondiente a los proveedores indicados, con la documentación que permita acreditar la efectiva realización de las operaciones de compras (acorde a lo previsto por el artículo 44° de la T.U.O. de la Ley del IGV); y en tanto, este primer criterio sea satisfecho, respecto de la información y/o documentación proporcionada se verificará el cumplimiento de los requisitos sustanciales y formales previstos en los artículos 18° y 19° del T.U.O. de la Ley del IGV, respectivamente, con respecto a 3 empresas:
+
+- 20603145501 SOYA LAS AMERICAS S.A.C
+- 20604638021 COMERCIAL FERRETEROS LOS ANGELES SAC
+- 20543504492 EQUILIBRIO PUBLICITARIO Y COMUNICACIONES S.A.C.`
+            },
+            {
+                date: '10 de Octubre',
+                title: 'GOES Solicita Prórroga al Requerimiento 0222240011724',
+                icon: 'fa-solid fa-clock',
+                description: `Con fecha 10 de octubre del 2024 GOES solicita prórroga de plazo, dando respuesta al requerimiento n°0222240011724 y en la cual se indica:
+
+● De conformidad con el requerimiento N.° 0222240011724 relacionado con la carta N.° 240021952905-01-Sunat, es de mencionar que nos encontramos en proceso de recuperación de documentos de las operaciones económicas y libros contables del año 2022, en tal sentido solicitamos la ampliación de noventa (90) días adicionales para cumplir con la entrega de la relación de documentos e información que nos requiere.`
+            },
+            {
+                date: '11 de Octubre',
+                title: 'Mediante Carta, Se Deniega la Solicitud de Prórroga',
+                icon: 'fa-solid fa-ban',
+                description: `Con fecha 11 de octubre del 2024, mediante carta N°240021952905-02-SUNAT, se da respuesta a solicitud en la que se indica:
+
+● De acuerdo a la evaluación del expediente, se le comunica que su solicitud de prórroga se considera como no presentada en concordancia con lo dispuesto en el artículo 7° del Reglamento de Procedimiento de Fiscalización aprobado por Decreto Supremo N° 085-2007-EF, y normas modificatorias, al no haber sido presentada dentro del plazo previsto en el referido artículo, ni haber acreditado con documentación fehaciente el caso fortuito o fuerza mayor que impida su presentación en dicho plazo.`
+            },
+            {
+                date: '15 de Octubre',
+                title: 'Se Emite Carta 281-2024 SUNAT/EB300',
+                icon: 'fa-solid fa-envelope-open-text',
+                description: `Con fecha 15 de Octubre del 2024, se emite la carta N° 281-2024-SUNAT/EB300, mediante la cual:
+
+● De deja sin efecto el Resultado de Requerimiento N.° 0222240011388 notificado el 30 de septiembre de 2024 y el Requerimiento N° 0222240011724 notificado el 01 de octubre de 2024, ambos documentos notificados al buzón electrónico; mediante los cuales, por el primero se comunicó al contribuyente el cumplimiento o no de la presentación de la información solicitada en el Requerimiento N.° 0222240011388 (que mediante la presente se deja sin efecto), y, por el segundo se solicitó al contribuyente que presente información referida al crédito fiscal que devino del Resultado de Requerimiento antes señalado; en ese sentido, corresponde también que, el Resultado de Requerimiento N.° 0222240011388 y el Requerimiento N° 0222240011724 se dejen sin efecto.
+
+● Para declarar nula los requerimientos antes mencionado se sustenta en el hecho que los requerimientos son ambiguos e imprecisos por lo que se deja sin efecto el requerimiento N°. 0222240011388 y además los resultados de los requerimientos.`
+            },
+            {
+                date: '16 de Octubre',
+                title: 'Se Emite Requerimiento 0222240012769',
+                icon: 'fa-solid fa-file-circle-plus',
+                description: `Con fecha 16 de octubre del 2024, se emite requerimiento N° 0222240012769, donde solicita se cumpla con remitir lo siguiente:
+
+● Archivos en formato texto (txt) del Registro de Compras llevado de manera electrónica (SLE-PLE) de acuerdo a la Resolución de Superintendencia N 286-2009/SUNAT y normas modificatorias, correspondiente a los períodos 01/2022 a 12/2022.
+
+● Una copia de la base de datos, en formato Excel (xls o xlsx) o texto (txt) así como copias en archivo PDF o PDF/A del original de los folios referidos a la Legalización de Libro Diario, Libro Mayor, Libro de Inventarios y Balances, Registro de Activos Fijos y Registro de Consignaciones, por llevar la contabilidad en sistema computarizado.
+
+● Fecha de vencimiento 22 de octubre del 2024.`
+            },
+            {
+                date: '23 de Octubre',
+                title: 'Resultado del Requerimiento 0222240012769',
+                icon: 'fa-solid fa-file-circle-check',
+                description: `Con fecha 23 de octubre del 2024, se emite el resultado de requerimiento N° 0222240012769, que indica:
+
+● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada, de manera reiterada, mediante el Requerimiento N° 0222240012769, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 22/10/2024.`
+            },
+            {
+                date: '24 de Octubre',
+                title: 'Solicitud de Prórroga Se Considera No Presentada',
+                icon: 'fa-solid fa-calendar-xmark',
+                description: `Con fecha 24 de octubre del 2024, mediante carta N°240021952905-03-SUNAT, se tiene como no presentada la solicitud de prórroga de plazo.
+
+● De acuerdo a la evaluación del expediente, se le comunica que su solicitud de prórroga se considera como no presentada en concordancia con lo dispuesto en el artículo 7° del Reglamento de Procedimiento de Fiscalización aprobado por Decreto Supremo N° 085-2007-EF, y normas modificatorias, al no haber sido presentada dentro del plazo previsto en el referido artículo, ni haber acreditado con documentación fehaciente el caso fortuito o fuerza mayor que impida su presentación en dicho plazo.`
+            },
+            {
+                date: '24 de Octubre',
+                title: 'Se emite requerimiento N° 0222240013164',
+                icon: 'fa-solid fa-file-circle-plus',
+                description: `Con fecha 24 de octubre del 2024, se emite requerimiento N° 0222240013164, en el que se solicita:
+
+● Se brinde información de 3 empresas:
+- 20603145501 SOYA LAS AMERICAS S.A.C
+- 20604638021 COMERCIAL FERRETEROS LOS ANGELES SAC
+- 20543504492 EQUILIBRIO PUBLICITARIO Y COMUNICACIONES S.A.C`
+            },
+            {
+                date: '6 de Noviembre',
+                title: 'Se da respuesta a requerimiento N° 0222240013164',
+                icon: 'fa-solid fa-reply',
+                description: 'Con fecha 06 de noviembre del 2024, se da respuesta al requerimiento N° 0222240013164.'
+            },
+            {
+                date: '19 de Noviembre',
+                title: 'Se Emite Resultado de Requerimiento 0222240013164 y Resultado de Fiscalización',
+                icon: 'fa-solid fa-file-circle-check',
+                description: `Con Fecha 19 de Noviembre del 2024, se emite resultado de requerimiento N° 0222240013164, cierre de fiscalización.
+
+● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada mediante el Requerimiento N° 0222240013164.
+
+● Sin embargo, el contribuyente al no contar con la documentación que sustente el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 "RELACIÓN DE COMPROBANTES DE PAGO SELECCIONADOS PARA ACREDITAR LAS OPERACIONES" adjunto al Requerimiento N° 0222240013164 correspondiente a los proveedores ahí indicados, ha presentado sus declaraciones rectificatorias correspondiente a los periodos enero a marzo 2022.`
+            },
+            {
+                date: '29 de Noviembre',
+                title: 'Se Emite Resoluciones de Determinación y 13 Resoluciones de Multa',
+                icon: 'fa-solid fa-gavel',
+                description: `Se emitieron las siguientes resoluciones de multa:
+                
+● 022-00-0027973
+● 022-003-0096799
+● 022-003-0096800
+● 022-003-0096801
+● 022-003-0096803
+● 022-003-0096803
+● 022-003-0096804
+● 022-003-0096805
+● 022-003-0096807
+● 022-003-0096808
+● 022-003-0096809
+● 022-00-0027972`
+            }
+        ];
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar el carousel
-            const myCarousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
-                interval: 5000,
-                touch: true
+            const timeline = document.getElementById('timeline');
+            const modal = document.getElementById('eventModal');
+            const bsModal = new bootstrap.Modal(modal);
+
+            events.forEach((event, index) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML = `
+                    <div class="timeline-content" onclick="showModal(${index})">
+                        <div class="timeline-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            ${event.date}
+                        </div>
+                        <h3 class="timeline-title">${event.title}</h3>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-icon">
+                            <i class="${event.icon}"></i>
+                        </div>
+                    </div>
+                `;
+                timeline.appendChild(item);
             });
 
-            // Forzar el inicio del autoplay
-            myCarousel.cycle();
-
-            // Reiniciar animación del texto cuando cambie el slide
-            document.getElementById('mainCarousel').addEventListener('slide.bs.carousel', function (e) {
-                const captions = document.querySelectorAll('.carousel-caption');
-                captions.forEach(caption => {
-                    caption.style.opacity = '0';
-                    caption.style.transform = 'translateX(50px)';
-                });
-            });
-
-            document.getElementById('mainCarousel').addEventListener('slid.bs.carousel', function (e) {
-                const activeCaption = e.relatedTarget.querySelector('.carousel-caption');
-                setTimeout(() => {
-                    activeCaption.style.opacity = '1';
-                    activeCaption.style.transform = 'translateX(0)';
-                }, 50);
-            });
-
-            // Manejar el formulario de contacto
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Mensaje enviado correctamente');
-                bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
-            });
-
-            // Scroll suave mejorado
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if(this.getAttribute('href') === '#top') {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Inicializar AOS sin deshabilitar en móviles
-            AOS.init({
-                duration: 1000,
-                easing: 'ease-out',
-                once: true,
-                offset: 50,
-                disable: false // Cambiar a false para que funcione en móviles
-            });
-
-            // Reiniciar AOS cuando cambie el slide del carousel
-            document.getElementById('mainCarousel').addEventListener('slid.bs.carousel', function () {
-                AOS.refresh();
-            });
-
-            // Cursor personalizado
-            const cursor = {
-                dot: document.querySelector('.cursor-dot'),
-                dotOutline: document.querySelector('.cursor-dot-outline'),
-                cursorVisible: true,
-                cursorEnlarged: false,
-                
-                endX: window.innerWidth / 2,
-                endY: window.innerHeight / 2,
-                dotX: window.innerWidth / 2,
-                dotY: window.innerHeight / 2,
-                outlineX: window.innerWidth / 2,
-                outlineY: window.innerHeight / 2,
-                
-                init: function() {
-                    this.setupEventListeners();
-                    this.animateDotOutline();
-                    
-                    // Mostrar cursores
-                    setTimeout(() => {
-                        this.dot.classList.add('active');
-                        this.dotOutline.classList.add('active');
-                    }, 100);
-                },
-                
-                setupEventListeners: function() {
-                    document.addEventListener('mousemove', e => {
-                        this.cursorVisible = true;
-                        this.endX = e.clientX;
-                        this.endY = e.clientY;
-                        this.dot.style.top = this.endY + 'px';
-                        this.dot.style.left = this.endX + 'px';
-                    });
-                    
-                    document.addEventListener('mouseenter', e => {
-                        this.cursorVisible = true;
-                        this.toggleCursorVisibility();
-                    });
-                    
-                    document.addEventListener('mouseleave', e => {
-                        this.cursorVisible = false;
-                        this.toggleCursorVisibility();
-                    });
-                    
-                    document.querySelectorAll('a, button, .service-card, .article-card').forEach(el => {
-                        el.addEventListener('mouseover', () => {
-                            this.cursorEnlarged = true;
-                            this.toggleCursorSize();
-                        });
-                        el.addEventListener('mouseout', () => {
-                            this.cursorEnlarged = false;
-                            this.toggleCursorSize();
-                        });
-                    });
-                },
-                
-                animateDotOutline: function() {
-                    this.outlineX += (this.endX - this.outlineX) / 8;
-                    this.outlineY += (this.endY - this.outlineY) / 8;
-                    this.dotOutline.style.top = this.outlineY + 'px';
-                    this.dotOutline.style.left = this.outlineX + 'px';
-                    
-                    requestAnimationFrame(this.animateDotOutline.bind(this));
-                },
-                
-                toggleCursorVisibility: function() {
-                    if (this.cursorVisible) {
-                        this.dot.style.opacity = 1;
-                        this.dotOutline.style.opacity = 1;
-                    } else {
-                        this.dot.style.opacity = 0;
-                        this.dotOutline.style.opacity = 0;
-                    }
-                },
-                
-                toggleCursorSize: function() {
-                    if (this.cursorEnlarged) {
-                        this.dotOutline.classList.add('hover');
-                    } else {
-                        this.dotOutline.classList.remove('hover');
-                    }
-                }
+            window.showModal = function(index) {
+                const event = events[index];
+                modal.querySelector('.modal-title').innerHTML = `
+                    <i class="${event.icon} me-2"></i>${event.title}
+                `;
+                modal.querySelector('.event-date').innerHTML = `
+                    <i class="fa-regular fa-calendar me-2 text-primary"></i>
+                    <span class="fw-bold">${event.date}</span>
+                `;
+                modal.querySelector('.event-description').innerHTML = event.description || 'No hay descripción disponible.';
+                bsModal.show();
             };
 
-            // Inicializar cursor personalizado
-            cursor.init();
-        });
-    </script>
+            // Agregar la función de visibilidad
+            function checkVisibility() {
+                const items = document.querySelectorAll('.timeline-item');
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const isVisible = (rect.top <= window.innerHeight * 0.8);
+                    if (isVisible) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
 
-    <!-- Agregar después del carousel -->
-    <section id="servicios" class="services-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Servicios</h2>
-                <p>Soluciones integrales de seguridad adaptadas a las necesidades de su empresa</p>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Consultoría en Seguridad Integral</h3>
-                        <p>Asesoramiento especializado para proteger su organización de manera efectiva y eficiente.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-certificate"></i>
-                        <h3>Normas Internacionales</h3>
-                        <p>Implementación y certificación de estándares internacionales de seguridad.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-laptop-code"></i>
-                        <h3>Desarrollo de Software</h3>
-                        <p>Soluciones tecnológicas personalizadas orientadas a la seguridad empresarial.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-                        <i class="fas fa-video"></i>
-                        <h3>Seguridad Electrónica</h3>
-                        <p>Sistemas integrados de vigilancia y control de última generación.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Agregar después de las tarjetas de servicios -->
-    <section class="stats-section py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-3 mb-4">
-                    <div class="stat-item" data-aos="fade-right" data-aos-delay="200">
-                        <i class="fas fa-building mb-3"></i>
-                        <h2 class="counter">500</h2>
-                        <p>Clientes Satisfechos</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="stat-item" data-aos="fade-right" data-aos-delay="400">
-                        <i class="fas fa-shield-alt mb-3"></i>
-                        <h2 class="counter">1000</h2>
-                        <p>Proyectos Completados</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="stat-item" data-aos="fade-right" data-aos-delay="600">
-                        <i class="fas fa-award mb-3"></i>
-                        <h2 class="counter">15</h2>
-                        <p>Años de Experiencia</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="stat-item" data-aos="fade-right" data-aos-delay="800">
-                        <i class="fas fa-users mb-3"></i>
-                        <h2 class="counter">50</h2>
-                        <p>Expertos en Seguridad</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Agregar la sección de artículos después de la sección de estadísticas -->
-    <section id="articulos" class="articles-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Últimas Publicaciones</h2>
-                <p>Mantente actualizado con las últimas noticias y tendencias en seguridad</p>
-            </div>
-            <div class="swiper-container articles-slider">
-                <div class="swiper-wrapper">
-                    <!-- Artículo 1 -->
-                    <div class="swiper-slide">
-                        <div class="article-card">
-                            <div class="article-image">
-                                <span class="article-category">Seguridad</span>
-                                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9" alt="Seguridad Empresarial">
-                            </div>
-                            <div class="article-content">
-                                <div class="article-date">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    15 Marzo, 2024
-                                </div>
-                                <h3 class="article-title">Tendencias en Seguridad Empresarial 2024</h3>
-                                <p class="article-excerpt">
-                                    Descubre las últimas tendencias y tecnologías en seguridad empresarial.
-                                </p>
-                                <a href="#" class="article-link">
-                                    Leer más <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Artículo 2 -->
-                    <div class="swiper-slide">
-                        <div class="article-card">
-                            <div class="article-image">
-                                <span class="article-category">Normativa</span>
-                                <img src="https://images.unsplash.com/photo-1507207611509-ec012433ff52" alt="Normativas">
-                            </div>
-                            <div class="article-content">
-                                <div class="article-date">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    10 Marzo, 2024
-                                </div>
-                                <h3 class="article-title">Nuevas Normativas ISO en Seguridad</h3>
-                                <p class="article-excerpt">
-                                    Análisis de las últimas actualizaciones en normativas internacionales.
-                                </p>
-                                <a href="#" class="article-link">
-                                    Leer más <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Artículo 3 -->
-                    <div class="swiper-slide">
-                        <div class="article-card">
-                            <div class="article-image">
-                                <span class="article-category">Tecnología</span>
-                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b" alt="Tecnología">
-                            </div>
-                            <div class="article-content">
-                                <div class="article-date">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    5 Marzo, 2024
-                                </div>
-                                <h3 class="article-title">Inteligencia Artificial en Seguridad</h3>
-                                <p class="article-excerpt">
-                                    Cómo la IA está revolucionando los sistemas de seguridad.
-                                </p>
-                                <a href="#" class="article-link">
-                                    Leer más <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Agregar sección de clientes -->
-    <section id="clientes" class="clients-section py-5 bg-light">
-        <div class="container">
-            <div class="section-title">
-                <h2>Confían en Nosotros</h2>
-                <p>Empresas líderes que respaldan nuestra trayectoria</p>
-            </div>
-            <div class="clients-slider">
-                <!-- Aquí irían los logos de los clientes -->
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-md-2 col-6 mx-3 my-3">
-                        <img src="path-to-client-logo" alt="Cliente 1" class="img-fluid client-logo">
-                    </div>
-                    <!-- Más logos... -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Agregar este script para la animación de números -->
-    <script>
-        // Animación de contador
-        function animateCounter(element, target) {
-            let current = 0;
-            const increment = target / 50; // Ajusta la velocidad
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    clearInterval(timer);
-                    current = target;
-                }
-                element.textContent = Math.round(current);
-            }, 40);
-        }
-
-        // Iniciar animación cuando el elemento es visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.counter');
-                    counters.forEach(counter => {
-                        animateCounter(counter, parseInt(counter.textContent));
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
+            // Llamar a checkVisibility inicialmente y en cada scroll
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('load', checkVisibility);
+            // Llamar también después de que se carguen los elementos
+            setTimeout(checkVisibility, 100);
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.querySelector('.stats-section'));
-        });
-    </script>
+            const navItemsContainer = document.querySelector('.nav-items-container');
+            const navItems = document.querySelector('.nav-items');
+            const prevButton = document.querySelector('.prev-button');
+            const nextButton = document.querySelector('.next-button');
+            let scrollPosition = 0;
+            const scrollAmount = 300;
 
-    <!-- Actualizar la estructura del footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content text-center">
-                <p class="mb-0">
-                    Desarrollado por 
-                    <span class="company-name">24/7 Consultores</span>
-                    <span class="separator">|</span>
-                    <span class="developer">C.Villavicencio</span>
-                </p>
-            </div>
-        </div>
-    </footer>
+            // Agregar IDs a los elementos del timeline vertical
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                item.id = `event-${index}`;
+            });
 
-    <!-- Agregar al final del body, antes del cierre -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-dot-outline"></div>
+            // Función para scroll suave
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                });
+            });
 
-    <!-- Agregar los scripts antes del cierre del body -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        // Inicializar Swiper
-        const swiper = new Swiper('.articles-slider', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 3,
-            initialSlide: 1,
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    coverflowEffect: {
-                        depth: 100,
-                    }
-                },
-                768: {
-                    slidesPerView: 2,
-                    coverflowEffect: {
-                        depth: 150,
-                    }
-                },
-                1024: {
-                    slidesPerView: 3,
-                    coverflowEffect: {
-                        depth: 200,
-                    }
+            // Controles de navegación horizontal
+            nextButton.addEventListener('click', () => {
+                scrollPosition += scrollAmount;
+                if (scrollPosition > navItems.scrollWidth - navItemsContainer.clientWidth) {
+                    scrollPosition = navItems.scrollWidth - navItemsContainer.clientWidth;
                 }
-            }
+                navItems.style.transform = `translateX(-${scrollPosition}px)`;
+            });
+
+            prevButton.addEventListener('click', () => {
+                scrollPosition -= scrollAmount;
+                if (scrollPosition < 0) {
+                    scrollPosition = 0;
+                }
+                navItems.style.transform = `translateX(-${scrollPosition}px)`;
+            });
         });
     </script>
-
 </body>
-</html>
+</html> 
