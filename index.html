@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronología de Fiscalización</title>
+    <title>Cronología de Fiscalización IGV 2022 y Proceso Coactivo</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@
             content: '';
             position: absolute;
             width: 6px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            background: linear-gradient(to bottom, var(--primary), var(--danger));
             top: 0;
             bottom: 0;
             left: 50%;
@@ -97,6 +97,33 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .timeline-content.coactive {
+            background: rgba(234, 67, 53, 0.05);
+            border: 2px solid var(--danger);
+        }
+
+        .timeline-content.coactive .timeline-date {
+            color: var(--danger);
+        }
+
+        .timeline-content.coactive .timeline-icon {
+            background: var(--danger);
+        }
+
+        .coactive-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--danger);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
@@ -181,91 +208,6 @@
             left: -60px;
         }
 
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 40px;
-            }
-
-            .timeline-content {
-                width: calc(100% - 80px);
-                margin-left: 80px !important;
-            }
-
-            .timeline-dot {
-                left: 40px;
-            }
-
-            .timeline-icon {
-                left: 20px !important;
-            }
-        }
-
-        /* Actualizar estilos del modal */
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.5) !important;
-        }
-
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-        }
-
-        .modal-header {
-            background: #1a73e8;
-            color: white;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .btn-close {
-            background-color: white !important;
-        }
-
-        .timeline-item {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-content {
-            cursor: pointer;
-        }
-
-        /* Mejorar la visibilidad del modal */
-        .modal-dialog {
-            max-width: 600px;
-        }
-
-        .modal-body {
-            padding: 25px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .event-description {
-            white-space: pre-line;
-            text-align: left;
-        }
-
-        .event-description ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-
-        .modal-body {
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
         .horizontal-timeline-wrapper {
             position: sticky;
             top: 0;
@@ -327,6 +269,11 @@
             text-align: center;
         }
 
+        .nav-item.coactive {
+            background: rgba(234, 67, 53, 0.1);
+            border: 1px solid var(--danger);
+        }
+
         .nav-item:hover {
             background: var(--primary);
             color: white;
@@ -337,6 +284,10 @@
             font-size: 0.9rem;
             color: var(--primary);
             font-weight: 600;
+        }
+
+        .nav-item.coactive .date {
+            color: var(--danger);
         }
 
         .nav-item:hover .date {
@@ -350,17 +301,83 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 40px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            .timeline-dot {
+                left: 40px;
+            }
+
+            .timeline-icon {
+                left: 20px !important;
+            }
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 1rem;
+        }
+
+        .modal-header.coactive {
+            background: var(--danger);
+        }
+
+        .modal-body {
+            padding: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .event-description {
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        .btn-close {
+            background-color: white !important;
+            opacity: 1;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #dee2e6;
+            padding: 1rem;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary);
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="navigation-button">
-            <a href="timeline_coactiva.html" class="btn btn-primary">
-                <i class="fas fa-arrow-right"></i>
-                Ver Proceso Coactivo
-            </a>
-        </div>
-        <h1 class="text-center my-5">Fiscalización IGV 2022</h1>
+        <h1 class="text-center my-5">Cronología de Fiscalización IGV 2022 y Proceso Coactivo</h1>
         <div class="horizontal-timeline-wrapper mb-5">
             <div class="horizontal-timeline">
                 <div class="timeline-nav">
@@ -369,82 +386,7 @@
                     </button>
                     <div class="nav-items-container">
                         <div class="nav-items">
-                            <a href="#event-0" class="nav-item">
-                                <div class="date">14 Ago</div>
-                                <div class="title">Inicio Fiscalización</div>
-                            </a>
-                            <a href="#event-1" class="nav-item">
-                                <div class="date">14 Ago</div>
-                                <div class="title">Primer Requerimiento</div>
-                            </a>
-                            <a href="#event-2" class="nav-item">
-                                <div class="date">3 Sep</div>
-                                <div class="title">Carta Respuesta</div>
-                            </a>
-                            <a href="#event-3" class="nav-item">
-                                <div class="date">5 Sep</div>
-                                <div class="title">Resultado Requerimiento</div>
-                            </a>
-                            <a href="#event-4" class="nav-item">
-                                <div class="date">16 Sep</div>
-                                <div class="title">GOES Remite Información</div>
-                            </a>
-                            <a href="#event-5" class="nav-item">
-                                <div class="date">17 Sep</div>
-                                <div class="title">GOES Acompaña Documentación</div>
-                            </a>
-                            <a href="#event-6" class="nav-item">
-                                <div class="date">23 Sep</div>
-                                <div class="title">Nuevo Requerimiento</div>
-                            </a>
-                            <a href="#event-7" class="nav-item">
-                                <div class="date">30 Sep</div>
-                                <div class="title">Resultado Requerimiento</div>
-                            </a>
-                            <a href="#event-8" class="nav-item">
-                                <div class="date">1 Oct</div>
-                                <div class="title">Nuevo Requerimiento</div>
-                            </a>
-                            <a href="#event-9" class="nav-item">
-                                <div class="date">10 Oct</div>
-                                <div class="title">Solicitud Prórroga</div>
-                            </a>
-                            <a href="#event-10" class="nav-item">
-                                <div class="date">11 Oct</div>
-                                <div class="title">Deniega Prórroga</div>
-                            </a>
-                            <a href="#event-11" class="nav-item">
-                                <div class="date">15 Oct</div>
-                                <div class="title">Carta SUNAT</div>
-                            </a>
-                            <a href="#event-12" class="nav-item">
-                                <div class="date">16 Oct</div>
-                                <div class="title">Nuevo Requerimiento</div>
-                            </a>
-                            <a href="#event-13" class="nav-item">
-                                <div class="date">23 Oct</div>
-                                <div class="title">Resultado Requerimiento</div>
-                            </a>
-                            <a href="#event-14" class="nav-item">
-                                <div class="date">24 Oct</div>
-                                <div class="title">Prórroga No Presentada</div>
-                            </a>
-                            <a href="#event-15" class="nav-item">
-                                <div class="date">24 Oct</div>
-                                <div class="title">Nuevo Requerimiento</div>
-                            </a>
-                            <a href="#event-16" class="nav-item">
-                                <div class="date">6 Nov</div>
-                                <div class="title">Respuesta Requerimiento</div>
-                            </a>
-                            <a href="#event-17" class="nav-item">
-                                <div class="date">19 Nov</div>
-                                <div class="title">Resultado Final</div>
-                            </a>
-                            <a href="#event-18" class="nav-item">
-                                <div class="date">29 Nov</div>
-                                <div class="title">Resoluciones Finales</div>
-                            </a>
+                            <!-- Los nav-items se generarán dinámicamente -->
                         </div>
                     </div>
                     <button class="nav-button next-button">
@@ -479,6 +421,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Array combinado de eventos
         const events = [
             {
                 date: '14 de Agosto',
@@ -618,20 +561,52 @@ La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ej
             },
             {
                 date: '24 de Octubre',
-                title: 'Se emite requerimiento N° 0222240013164',
+                title: 'Se Emite Requerimiento 0222240013164',
                 icon: 'fa-solid fa-file-circle-plus',
-                description: `Con fecha 24 de octubre del 2024, se emite requerimiento N° 0222240013164, en el que se solicita:
+                description: `Con fecha 24 de octubre del 2024, se emite requerimiento N° 0222240013164, mediante el cual se le requiere:
 
-● Se brinde información de 3 empresas:
-- 20603145501 SOYA LAS AMERICAS S.A.C
-- 20604638021 COMERCIAL FERRETEROS LOS ANGELES SAC
-- 20543504492 EQUILIBRIO PUBLICITARIO Y COMUNICACIONES S.A.C`
+● Sustentar el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 "RELACIÓN DE COMPROBANTES DE PAGO SELECCIONADOS PARA ACREDITAR LAS OPERACIONES" adjunto al presente Requerimiento correspondiente a los proveedores indicados, con la documentación que permita acreditar la efectiva realización de las operaciones de compras (acorde a lo previsto por el artículo 44° de la T.U.O. de la Ley del IGV); y en tanto, este primer criterio sea satisfecho, respecto de la información y/o documentación proporcionada se verificará el cumplimiento de los requisitos sustanciales y formales previstos en los artículos 18° y 19° del T.U.O. de la Ley del IGV, respectivamente.`
             },
             {
                 date: '6 de Noviembre',
-                title: 'Se da respuesta a requerimiento N° 0222240013164',
+                title: 'Respuesta al Requerimiento 0222240013164',
                 icon: 'fa-solid fa-reply',
-                description: 'Con fecha 06 de noviembre del 2024, se da respuesta al requerimiento N° 0222240013164.'
+                description: `Con fecha 06 de noviembre del 2024, se da respuesta al requerimiento N° 0222240013164, en la cual se indica:
+
+● Que, se ha cumplido con presentar la documentación solicitada en el requerimiento N° 0222240013164.`
+            },
+            {
+                date: '14 de Noviembre',
+                title: 'Órdenes de Pago Emitida por Gerencia de Control de Deuda',
+                icon: 'fa-solid fa-file-invoice-dollar',
+                description: `⮚ Con fecha 14 de noviembre del 2024, se emiten 11 órdenes de pago por los períodos 01,03,04,05,06,07,08,09,10,11 – 2022.
+
+● Orden de pago N° 021-001-0757794 – periodo 2022-01-
+● Orden de pago N° 021-001-0757822 – periodo 2022-01-
+● Orden de pago N° 021-001-0757785 – periodo 2022-03-
+● Orden de pago N° 021-001-0757786 – periodo 2022-04-
+● Orden de pago N° 021-001-0757787 – periodo 2022-05-
+● Orden de pago N° 021-001-0757788 – periodo 2022-06-
+● Orden de pago N° 021-001-0757789 – periodo 2022-07-
+● Orden de pago N° 021-001-0757790 – periodo 2022-08-
+● Orden de pago N° 021-001-0757791 – periodo 2022-09-
+● Orden de pago N° 021-001-0757792 – periodo 2022-10-
+● Orden de pago N° 021-001-0757823 – periodo 2022-11-`,
+                type: 'coactive'
+            },
+            {
+                date: '18 de Noviembre',
+                title: 'Se Emite la Resolución de Ejecución Coactiva',
+                icon: 'fa-solid fa-gavel',
+                description: `⮚ Con fecha 18 de noviembre del 2024, se emite la resolución de ejecución coactiva N° 021-006-0360096, total de deuda exigible S/.1,669,488.00.`,
+                type: 'coactive'
+            },
+            {
+                date: '19 de Noviembre',
+                title: 'Se Emite la Resolución de Ejecución Coactiva',
+                icon: 'fa-solid fa-gavel',
+                description: `⮚ Con fecha 19 de noviembre del 2024, se emite la resolución de ejecución coactiva N° 021-006-0360223, total de deuda exigible S/.79,052.00.`,
+                type: 'coactive'
             },
             {
                 date: '19 de Noviembre',
@@ -648,7 +623,7 @@ La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ej
                 title: 'Se Emite Resoluciones de Determinación y 13 Resoluciones de Multa',
                 icon: 'fa-solid fa-gavel',
                 description: `Se emitieron las siguientes resoluciones de multa:
-                
+
 ● 022-00-0027973
 ● 022-003-0096799
 ● 022-003-0096800
@@ -668,12 +643,28 @@ La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ej
             const timeline = document.getElementById('timeline');
             const modal = document.getElementById('eventModal');
             const bsModal = new bootstrap.Modal(modal);
+            const navItems = document.querySelector('.nav-items');
 
+            // Generar nav-items
+            events.forEach((event, index) => {
+                const navItem = document.createElement('a');
+                navItem.href = `#event-${index}`;
+                navItem.className = `nav-item ${event.type === 'coactive' ? 'coactive' : ''}`;
+                navItem.innerHTML = `
+                    <div class="date">${event.date.split(' ')[0]} ${event.date.split(' ')[2]}</div>
+                    <div class="title">${event.title}</div>
+                `;
+                navItems.appendChild(navItem);
+            });
+
+            // Generar timeline items
             events.forEach((event, index) => {
                 const item = document.createElement('div');
                 item.className = 'timeline-item';
+                item.id = `event-${index}`;
                 item.innerHTML = `
-                    <div class="timeline-content" onclick="showModal(${index})">
+                    <div class="timeline-content ${event.type === 'coactive' ? 'coactive' : ''}" onclick="showModal(${index})">
+                        ${event.type === 'coactive' ? '<div class="coactive-badge">Proceso Coactivo</div>' : ''}
                         <div class="timeline-date">
                             <i class="fa-regular fa-calendar"></i>
                             ${event.date}
@@ -690,63 +681,27 @@ La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ej
 
             window.showModal = function(index) {
                 const event = events[index];
+                const modalHeader = modal.querySelector('.modal-header');
+                modalHeader.className = `modal-header ${event.type === 'coactive' ? 'coactive' : ''}`;
+                
                 modal.querySelector('.modal-title').innerHTML = `
                     <i class="${event.icon} me-2"></i>${event.title}
                 `;
                 modal.querySelector('.event-date').innerHTML = `
-                    <i class="fa-regular fa-calendar me-2 text-primary"></i>
+                    <i class="fa-regular fa-calendar me-2 text-${event.type === 'coactive' ? 'danger' : 'primary'}"></i>
                     <span class="fw-bold">${event.date}</span>
                 `;
                 modal.querySelector('.event-description').innerHTML = event.description || 'No hay descripción disponible.';
                 bsModal.show();
             };
 
-            // Agregar la función de visibilidad
-            function checkVisibility() {
-                const items = document.querySelectorAll('.timeline-item');
-                items.forEach(item => {
-                    const rect = item.getBoundingClientRect();
-                    const isVisible = (rect.top <= window.innerHeight * 0.8);
-                    if (isVisible) {
-                        item.classList.add('visible');
-                    }
-                });
-            }
-
-            // Llamar a checkVisibility inicialmente y en cada scroll
-            window.addEventListener('scroll', checkVisibility);
-            window.addEventListener('load', checkVisibility);
-            // Llamar también después de que se carguen los elementos
-            setTimeout(checkVisibility, 100);
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
+            // Navegación horizontal
             const navItemsContainer = document.querySelector('.nav-items-container');
-            const navItems = document.querySelector('.nav-items');
             const prevButton = document.querySelector('.prev-button');
             const nextButton = document.querySelector('.next-button');
             let scrollPosition = 0;
             const scrollAmount = 300;
 
-            // Agregar IDs a los elementos del timeline vertical
-            document.querySelectorAll('.timeline-item').forEach((item, index) => {
-                item.id = `event-${index}`;
-            });
-
-            // Función para scroll suave
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                });
-            });
-
-            // Controles de navegación horizontal
             nextButton.addEventListener('click', () => {
                 scrollPosition += scrollAmount;
                 if (scrollPosition > navItems.scrollWidth - navItemsContainer.clientWidth) {
@@ -762,7 +717,36 @@ La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ej
                 }
                 navItems.style.transform = `translateX(-${scrollPosition}px)`;
             });
+
+            // Scroll suave
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                });
+            });
+
+            // Animación de aparición
+            function checkVisibility() {
+                const items = document.querySelectorAll('.timeline-item');
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const isVisible = (rect.top <= window.innerHeight * 0.8);
+                    if (isVisible) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('load', checkVisibility);
+            setTimeout(checkVisibility, 100);
         });
     </script>
 </body>
-</html> 
+</html>
