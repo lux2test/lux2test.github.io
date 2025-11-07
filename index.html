@@ -1,752 +1,1000 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronología de Fiscalización IGV 2022 y Proceso Coactivo</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #1a73e8;
-            --secondary: #34a853;
-            --warning: #fbbc05;
-            --danger: #ea4335;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Orygen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-gradient-start: #ffffff;
+      --bg-gradient-end: #f5f5f5;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --card-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.12);
+      --text-primary: #1f2933;
+      --text-secondary: rgba(31, 41, 51, 0.68);
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-hover: rgba(255, 255, 255, 0.98);
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+    }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-            background-image: 
-                linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%),
-                repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 10px);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Titillium Web", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.82rem;
+      background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.25), transparent 48%) fixed,
+                  radial-gradient(circle at top right, rgba(249, 168, 37, 0.18), transparent 45%) fixed,
+                  linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 24px 64px;
+    }
 
-        h1 {
-            color: #1a73e8;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            font-weight: 600;
-            position: relative;
-            padding-bottom: 15px;
-        }
+    body.auth-mode {
+      align-items: center;
+      padding: 0;
+    }
 
-        h1:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #1a73e8, #34a853);
-            border-radius: 2px;
-        }
+    .app {
+      width: min(1200px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-        .timeline {
-            position: relative;
-            padding: 50px 0;
-        }
+    .auth {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.24), rgba(255, 255, 255, 0.96));
+      backdrop-filter: blur(16px);
+      z-index: 900;
+    }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: linear-gradient(to bottom, var(--primary), var(--danger));
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 3px;
-        }
+    .auth[hidden] {
+      display: none !important;
+    }
 
-        .timeline-item {
-            margin-bottom: 50px;
-            position: relative;
-            width: 100%;
-            perspective: 1000px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
-        }
+    .auth-card {
+      width: min(420px, 100%);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.12);
+      display: grid;
+      gap: 14px;
+    }
 
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .auth-logo {
+      width: min(300px, 75%);
+      margin: 0 auto 12px;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 26px rgba(249, 115, 22, 0.3));
+    }
 
-        .timeline-content {
-            position: relative;
-            width: 45%;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
+    .auth-card h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
 
-        .timeline-content.coactive {
-            background: rgba(234, 67, 53, 0.05);
-            border: 2px solid var(--danger);
-        }
+    .auth-card p {
+      margin: 0 0 8px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+    }
 
-        .timeline-content.coactive .timeline-date {
-            color: var(--danger);
-        }
+    .auth-card label {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
 
-        .timeline-content.coactive .timeline-icon {
-            background: var(--danger);
-        }
+    .auth-card input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-primary);
+      font-size: 0.86rem;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
 
-        .coactive-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--danger);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+    .auth-card input:focus {
+      border-color: rgba(249, 115, 22, 0.75);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.26);
+    }
 
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: auto;
-            transform-origin: left center;
-        }
+    .auth-card button {
+      margin-top: 6px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.95), rgba(234, 88, 12, 0.95));
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 18px 36px rgba(249, 115, 22, 0.28);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
 
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-right: auto;
-            transform-origin: right center;
-        }
+    .auth-card button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 44px rgba(249, 115, 22, 0.45);
+    }
 
-        .timeline-content:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 26px;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      box-shadow: var(--card-shadow);
+    }
 
-        .timeline-date {
-            font-size: 1rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-        .timeline-date i {
-            color: var(--warning);
-        }
+    .logout-button {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(249, 115, 22, 0.45);
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(234, 88, 12, 0.18));
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(249, 115, 22, 0.18);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
 
-        .timeline-title {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 600;
-            line-height: 1.4;
-        }
+    .logout-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(249, 115, 22, 0.65);
+      box-shadow: 0 16px 32px rgba(249, 115, 22, 0.26);
+    }
 
-        .timeline-dot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            top: 20px;
-            left: 50%;
-            margin-left: -10px;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
+    header img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(249, 115, 22, 0.35));
+    }
 
-        .timeline-item:hover .timeline-dot {
-            transform: scale(1.3);
-            background: var(--primary);
-        }
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
 
-        .timeline-icon {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            top: 10px;
-            transition: all 0.3s ease;
-        }
+    header p {
+      margin: 4px 0 0;
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-size: 0.78rem;
+    }
 
-        .timeline-item:hover .timeline-icon {
-            transform: rotate(360deg);
-        }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+    }
 
-        .timeline-item:nth-child(odd) .timeline-icon {
-            right: -60px;
-        }
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px 18px;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+      position: relative;
+      overflow: hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
 
-        .timeline-item:nth-child(even) .timeline-icon {
-            left: -60px;
-        }
+    .summary-card::after {
+      content: "";
+      position: absolute;
+      inset: -200% -40% auto;
+      height: 60%;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.24), transparent 65%);
+      transition: transform 400ms ease;
+      transform: translateY(30%);
+    }
 
-        .horizontal-timeline-wrapper {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.98);
-            z-index: 1000;
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 0 0 15px 15px;
-        }
+    .summary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.38);
+    }
 
-        .horizontal-timeline {
-            width: 100%;
-            overflow: hidden;
-        }
+    .summary-card:hover::after {
+      transform: translateY(20%);
+    }
 
-        .timeline-nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .summary-card h3 {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
 
-        .nav-button {
-            background: var(--primary);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .summary-card .value {
+      margin-top: 14px;
+      font-size: clamp(1.05rem, 1.4vw, 1.4rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
 
-        .nav-button:hover {
-            background: var(--secondary);
-        }
+    .summary-card .trend {
+      margin-top: 4px;
+      font-size: 0.7rem;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
 
-        .nav-items-container {
-            overflow: hidden;
-            flex: 1;
-        }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 22px 26px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-        .nav-items {
-            display: flex;
-            gap: 20px;
-            transition: transform 0.3s ease;
-        }
+    .panel header {
+      background: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-        .nav-item {
-            min-width: 150px;
-            text-decoration: none;
-            color: #333;
-            padding: 10px;
-            border-radius: 10px;
-            background: #f8f9fa;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
+    .panel header h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
 
-        .nav-item.coactive {
-            background: rgba(234, 67, 53, 0.1);
-            border: 1px solid var(--danger);
-        }
+    .panel header span {
+      margin-top: 6px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-size: 0.72rem;
+    }
 
-        .nav-item:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.9);
+    }
 
-        .nav-item .date {
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
+    thead {
+      background: rgba(249, 115, 22, 0.08);
+      backdrop-filter: blur(4px);
+    }
 
-        .nav-item.coactive .date {
-            color: var(--danger);
-        }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 0.74rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
 
-        .nav-item:hover .date {
-            color: white;
-        }
+    tbody tr {
+      transition: background 180ms ease, transform 180ms ease;
+    }
 
-        .nav-item .title {
-            font-size: 0.8rem;
-            margin-top: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    tbody tr:hover {
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+    }
 
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 40px;
-            }
+    .link-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(249, 115, 22, 0.32);
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.16), rgba(234, 88, 12, 0.16));
+      color: #1f2933;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.7rem;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      box-shadow: 0 12px 18px rgba(249, 115, 22, 0.18);
+    }
 
-            .timeline-content {
-                width: calc(100% - 80px);
-                margin-left: 80px !important;
-            }
+    .link-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(249, 115, 22, 0.6);
+      box-shadow: 0 20px 32px rgba(249, 115, 22, 0.28);
+    }
 
-            .timeline-dot {
-                left: 40px;
-            }
+    .progress {
+      width: 100%;
+      height: 8px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+      margin-top: 8px;
+    }
 
-            .timeline-icon {
-                left: 20px !important;
-            }
-        }
+    .progress-bar {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.9), rgba(234, 88, 12, 0.9));
+      transition: width 360ms ease;
+    }
 
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.5) !important;
-        }
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      background: rgba(249, 115, 22, 0.14);
+      color: var(--text-secondary);
+    }
 
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-        }
+    .chart-wrapper {
+      background: rgba(15, 23, 42, 0.55);
+      border-radius: 18px;
+      padding: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      box-shadow: 0 18px 32px rgba(15, 23, 42, 0.35);
+    }
 
-        .modal-header {
-            background: var(--primary);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 1rem;
-        }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
 
-        .modal-header.coactive {
-            background: var(--danger);
-        }
+    .spinner {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      display: grid;
+      place-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      transition: opacity 220ms ease;
+    }
 
-        .modal-body {
-            padding: 25px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: justify;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
+    .spinner.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        .event-description {
-            white-space: pre-line;
-            text-align: left;
-        }
+    .spinner .loader {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 4px solid rgba(148, 163, 184, 0.25);
+      border-top-color: var(--accent);
+      animation: spin 0.95s linear infinite;
+      position: relative;
+    }
 
-        .btn-close {
-            background-color: white !important;
-            opacity: 1;
-        }
+    .spinner .loader::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: rgba(249, 115, 22, 0.75);
+      animation: spin 0.75s linear infinite reverse;
+      opacity: 0.8;
+    }
 
-        .modal-footer {
-            border-top: 1px solid #dee2e6;
-            padding: 1rem;
-        }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-        .btn-secondary {
-            background-color: var(--primary);
-            border: none;
-        }
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
 
-        .btn-secondary:hover {
-            background-color: var(--secondary);
-        }
-    </style>
+    .toast {
+      min-width: 260px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      display: grid;
+      gap: 6px;
+      animation: toast-in 420ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toast::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(249, 115, 22, 0.9), rgba(234, 88, 12, 0.9));
+      animation: toast-progress 6s linear forwards;
+    }
+
+    .toast strong {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    @keyframes toast-in {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes toast-progress {
+      from {
+        width: 100%;
+      }
+      to {
+        width: 0;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        padding: 32px 16px 48px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      header img {
+        width: 68px;
+        height: 68px;
+      }
+
+      table {
+        font-size: 0.88rem;
+      }
+
+      th, td {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toast-container {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(320px, 90vw);
+        align-items: stretch;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center my-5">Cronología de Fiscalización IGV 2022 y Proceso Coactivo</h1>
-        <div class="horizontal-timeline-wrapper mb-5">
-            <div class="horizontal-timeline">
-                <div class="timeline-nav">
-                    <button class="nav-button prev-button">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="nav-items-container">
-                        <div class="nav-items">
-                            <!-- Los nav-items se generarán dinámicamente -->
-                        </div>
-                    </div>
-                    <button class="nav-button next-button">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
+  <div class="spinner" id="global-spinner" role="alert" aria-live="polite">
+    <div class="loader"></div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <section class="auth" id="auth-screen">
+    <form class="auth-card" id="auth-form" autocomplete="off">
+      <img class="auth-logo" src="https://goesperu.com/wp-content/uploads/2024/08/771x216.png" alt="Logo GOES Perú">
+      <h1>Acceso al Dashboard</h1>
+      <p>Ingrese el código de acceso para continuar</p>
+      <label for="access-code">Código de acceso</label>
+      <input id="access-code" name="access-code" type="password" placeholder="Ingrese el código" required>
+      <button type="submit">Ingresar</button>
+    </form>
+  </section>
+
+  <main class="app" id="dashboard" hidden>
+    <header>
+      <div class="brand">
+        <img src="https://goesperu.com/wp-content/uploads/2024/08/771x216.png" alt="Logo GOES Perú">
+        <div>
+          <h1>Dashboard de Entregables del Servicio</h1>
+          <p>Monitoreo integral de cumplimiento y gestión documental</p>
         </div>
-        <div class="timeline" id="timeline"></div>
-    </div>
+      </div>
+      <button type="button" class="logout-button" id="logout-button">Cerrar sesión</button>
+    </header>
 
-    <!-- Modal Template -->
-    <div class="modal fade" id="eventModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="event-date mb-3"></div>
-                    <div class="event-description"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <section class="summary-grid" id="metrics-cards">
+      <!-- Métricas principales renderizadas por JS -->
+    </section>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Array combinado de eventos
-        const events = [
-            {
-                date: '14 de Agosto',
-                title: 'Inicio de la Fiscalización de IGV',
-                icon: 'fa-solid fa-flag-checkered',
-                description: `Con fecha 14 de agosto del 2024, mediante carta 240021952905-01 SUNAT – se da inicio de la fiscalización de IGV año 2022, con requerimiento N°. 022124004575 de fecha 14 de agosto del 2024.
+    <section class="panel">
+      <header>
+        <h2>Histograma de Cumplimiento Global</h2>
+        <span>Distribución del porcentaje de cumplimiento por entregable</span>
+      </header>
+      <div class="chart-wrapper">
+        <canvas id="histogramChart" aria-label="Histograma de cumplimiento" role="img"></canvas>
+      </div>
+    </section>
 
-La Superintendencia Nacional de Aduanas y de Administración Tributaria en el ejercicio de su función fiscalizadora realiza inspecciones, investigaciones y el control del cumplimiento de obligaciones tributarias y/u obligaciones formales, mediante programas de fiscalización.`
-            },
-            {
-                date: '14 de Agosto',
-                title: 'Primer Requerimiento',
-                icon: 'fa-solid fa-file-lines',
-                description: `Con fecha 14 de agosto del 2024, se da el primer requerimiento N° 0221240004575, en el cual se requiere:
+    <section class="panel">
+      <header>
+        <h2>Reporte Maestro de Entregables</h2>
+        <span>Detalle del plan de entregables con vínculos directos a sus carpetas</span>
+      </header>
+      <div class="table-wrapper">
+        <table>
+          <thead id="table-head">
+            <!-- Encabezados generados dinámicamente -->
+          </thead>
+          <tbody id="table-body">
+            <!-- Filas generadas dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-● Archivo en formato texto (txt) de los libros de caja y bancos, libro diario o libro diario de formato simplificado, libro mayor, libro de inventario y balances, registro de compras, registro activos fijos y registro de consignaciones.
+  <script>
+    const SHEET_ID = "1cc53S95H37GG4OjT5Yn7XTGvH6qGQ0ahC8I5QhqQM9Q";
+    const SHEET_ENDPOINT = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
+    const ACCESS_CODE = "Goes_Orygen_2025";
+    const spinner = document.getElementById("global-spinner");
+    const toastContainer = document.getElementById("toast-container");
+    const authScreen = document.getElementById("auth-screen");
+    const dashboardElement = document.getElementById("dashboard");
+    const authForm = document.getElementById("auth-form");
+    const accessInput = document.getElementById("access-code");
+    const logoutButton = document.getElementById("logout-button");
+    let histogramChart = null;
+    let dashboardLoaded = false;
 
-● Si lleva la contabilidad en sistema computarizado se requiere copia de la base de datos en formato Excel de los libros de caja y bancos, libro diario o libro diario de formato simplificado, libro mayor, libro de inventario y balances, registro de compras, registro activos fijos y registro de consignaciones.
+    const normalizeLabel = (value) => value?.toString().trim().toLowerCase();
 
-● Análisis mensual de la determinación del IGV.
+    const toast = (title, message, tone = "info") => {
+      const toastElement = document.createElement("div");
+      toastElement.className = "toast";
+      toastElement.innerHTML = `
+        <strong>${title}</strong>
+        <span>${message}</span>
+      `;
 
-● Fecha de presentación el día 03 de septiembre del 2024.`
-            },
-            {
-                date: '3 de Septiembre',
-                title: 'Carta de Respuesta',
-                icon: 'fa-solid fa-envelope',
-                description: 'Se cumplió con dar respuesta al requerimiento en el plazo establecido'
-            },
-            {
-                date: '5 de Septiembre',
-                title: 'Se Notifica Resultado de Requerimiento',
-                icon: 'fa-solid fa-clipboard-check',
-                description: `Con fecha 05 de Setiembre del 2024, SUNAT notifica el resultado del requerimiento N°. 0221240004575, en la cual concluye que:
+      if (tone === "success") {
+        toastElement.style.borderColor = "rgba(34, 197, 94, 0.35)";
+        toastElement.style.boxShadow = "0 18px 32px rgba(34, 197, 94, 0.25)";
+      }
 
-● Se ha encontrado información parcial por lo que se había infringido en el punto 1 y 2 del requerimiento; el numeral 5 del artículo 177 del TUO del código tributario aprobado por el decreto supremo 133-2013-F
+      if (tone === "error") {
+        toastElement.style.borderColor = "rgba(239, 68, 68, 0.35)";
+        toastElement.style.boxShadow = "0 18px 32px rgba(239, 68, 68, 0.25)";
+      }
 
-● Al vencimiento del plazo otorgado, el contribuyente cumplió de manera parcial con proporcionar y/o presentar la documentación y/o la información solicitada mediante el Requerimiento N° 0221240004575, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 03/09/2024.`
-            },
-            {
-                date: '16 de Septiembre',
-                title: 'GOES Remite Información Adicional de Tributos 0100-IGV',
-                icon: 'fa-solid fa-file-export',
-                description: `El 16 de septiembre GOES remite información adicional de tributo 0100-IGV del periodo 2022-01 hasta el 2022-12 relacionada con la fiscalización del crédito fiscal de adquisiciones y compras de dicho periodo, contradicción el documento del punto 5`
-            },
-            {
-                date: '17 de Septiembre',
-                title: 'GOES Acompaña Documentación Relacionada a la Carta de Requerimiento 0221240004575',
-                icon: 'fa-solid fa-folder-open',
-                description: 'El 17 de septiembre del 2024 GOES se acompaña documentación relacionado a la carta de requerimiento n°. 0221240004575'
-            },
-            {
-                date: '23 de Septiembre',
-                title: 'Nuevo Requerimiento Emitido 0222240011388',
-                icon: 'fa-solid fa-file-circle-plus',
-                description: `Con fecha 23 de Septiembre del 2024, se emite NUEVO requerimiento N° 0222240011388, en donde se reitera:
+      toastContainer.appendChild(toastElement);
 
-● Archivos en formato texto (txt) del Registro de Compras llevado de manera electrónica (SLE-PLE) de acuerdo a la Resolución de Superintendencia N 286-2009/SUNAT y normas modificatorias, correspondiente a los períodos 01/2022 a 12/2022.
+      setTimeout(() => {
+        toastElement.style.opacity = "0";
+        toastElement.style.transform = "translateY(6px)";
+        setTimeout(() => toastElement.remove(), 320);
+      }, 6200);
+    };
 
-● Una copia de la base de datos, en formato Excel (xls o xlsx) o texto (txt) así como copias en archivo PDF o PDF/A del original de los folios referidos a la Legalización de Libro Diario, Libro Mayor, Libro de Inventarios y Balances, Registro de Activos Fijos y Registro de Consignaciones, por llevar la contabilidad en sistema computarizado.
+    const showSpinner = () => spinner.classList.remove("hidden");
+    const hideSpinner = () => spinner.classList.add("hidden");
 
-● Fecha de vencimiento de respuesta 27 de septiembre del 2024.`
-            },
-            {
-                date: '30 de Septiembre',
-                title: 'Se Emite Resultado del Requerimiento 0222240011388',
-                icon: 'fa-solid fa-file-circle-check',
-                description: `Con fecha 30 de Setiembre del 2024, se emite el resultado de requerimiento N° 0222240011388, que concluye que:
+    const showAuthScreen = () => {
+      document.body.classList.add("auth-mode");
+      authScreen.hidden = false;
+      dashboardElement.hidden = true;
+      hideSpinner();
+      authForm?.reset();
+      setTimeout(() => accessInput?.focus(), 120);
+    };
 
-● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada, de manera reiterada, mediante el Requerimiento N° 0222240011388, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 27/09/2024.`
-            },
-            {
-                date: '1 de Octubre',
-                title: 'Se Emite Requerimiento 0222240011724',
-                icon: 'fa-solid fa-file-circle-exclamation',
-                description: `Con fecha 01 de octubre del 2024, se emite el requerimiento N° 0222240011724, mediante el cual se le requiere:
+    const enterDashboard = () => {
+      document.body.classList.remove("auth-mode");
+      authScreen.hidden = true;
+      dashboardElement.hidden = false;
+      loadDashboard();
+    };
 
-● Sustentar el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 del presente Requerimiento correspondiente a los proveedores indicados, con la documentación que permita acreditar la efectiva realización de las operaciones de compras (acorde a lo previsto por el artículo 44° de la T.U.O. de la Ley del IGV); y en tanto, este primer criterio sea satisfecho, respecto de la información y/o documentación proporcionada se verificará el cumplimiento de los requisitos sustanciales y formales previstos en los artículos 18° y 19° del T.U.O. de la Ley del IGV, respectivamente, con respecto a 3 empresas:
+    const logoutUser = () => {
+      sessionStorage.removeItem("orygen-auth");
+      dashboardLoaded = false;
+      toast("Sesión cerrada", "Ingrese el código para volver a acceder.");
+      showAuthScreen();
+    };
 
-- 20603145501 SOYA LAS AMERICAS S.A.C
-- 20604638021 COMERCIAL FERRETEROS LOS ANGELES SAC
-- 20543504492 EQUILIBRIO PUBLICITARIO Y COMUNICACIONES S.A.C.`
-            },
-            {
-                date: '10 de Octubre',
-                title: 'GOES Solicita Prórroga al Requerimiento 0222240011724',
-                icon: 'fa-solid fa-clock',
-                description: `Con fecha 10 de octubre del 2024 GOES solicita prórroga de plazo, dando respuesta al requerimiento n°0222240011724 y en la cual se indica:
+    const parseSheetNumber = (value) => {
+      if (value === null || value === undefined) return null;
+      if (typeof value === "number") {
+        return value <= 1 && value >= 0 ? value * 100 : value;
+      }
+      const numeric = parseFloat(String(value).replace(/[%\s]/g, "").replace(",", "."));
+      if (Number.isFinite(numeric)) {
+        return numeric <= 1 ? numeric * 100 : numeric;
+      }
+      return null;
+    };
 
-● De conformidad con el requerimiento N.° 0222240011724 relacionado con la carta N.° 240021952905-01-Sunat, es de mencionar que nos encontramos en proceso de recuperación de documentos de las operaciones económicas y libros contables del año 2022, en tal sentido solicitamos la ampliación de noventa (90) días adicionales para cumplir con la entrega de la relación de documentos e información que nos requiere.`
-            },
-            {
-                date: '11 de Octubre',
-                title: 'Mediante Carta, Se Deniega la Solicitud de Prórroga',
-                icon: 'fa-solid fa-ban',
-                description: `Con fecha 11 de octubre del 2024, mediante carta N°240021952905-02-SUNAT, se da respuesta a solicitud en la que se indica:
+    const formatPercentage = (value) => {
+      if (value === null || Number.isNaN(value)) return "—";
+      return `${value.toFixed(1)}%`;
+    };
 
-● De acuerdo a la evaluación del expediente, se le comunica que su solicitud de prórroga se considera como no presentada en concordancia con lo dispuesto en el artículo 7° del Reglamento de Procedimiento de Fiscalización aprobado por Decreto Supremo N° 085-2007-EF, y normas modificatorias, al no haber sido presentada dentro del plazo previsto en el referido artículo, ni haber acreditado con documentación fehaciente el caso fortuito o fuerza mayor que impida su presentación en dicho plazo.`
-            },
-            {
-                date: '15 de Octubre',
-                title: 'Se Emite Carta 281-2024 SUNAT/EB300',
-                icon: 'fa-solid fa-envelope-open-text',
-                description: `Con fecha 15 de Octubre del 2024, se emite la carta N° 281-2024-SUNAT/EB300, mediante la cual:
+    const buildTableHead = () => {
+      const head = document.getElementById("table-head");
+      head.innerHTML = `
+        <tr>
+          <th>N°</th>
+          <th>Entregable</th>
+          <th>Plazo / Periodicidad</th>
+          <th>Referencia contractual</th>
+          <th>Acceso</th>
+          <th>Cumplimiento promedio</th>
+        </tr>
+      `;
+    };
 
-● De deja sin efecto el Resultado de Requerimiento N.° 0222240011388 notificado el 30 de septiembre de 2024 y el Requerimiento N° 0222240011724 notificado el 01 de octubre de 2024, ambos documentos notificados al buzón electrónico; mediante los cuales, por el primero se comunicó al contribuyente el cumplimiento o no de la presentación de la información solicitada en el Requerimiento N.° 0222240011388 (que mediante la presente se deja sin efecto), y, por el segundo se solicitó al contribuyente que presente información referida al crédito fiscal que devino del Resultado de Requerimiento antes señalado; en ese sentido, corresponde también que, el Resultado de Requerimiento N.° 0222240011388 y el Requerimiento N° 0222240011724 se dejen sin efecto.
+    const buildTableBody = (rows) => {
+      const body = document.getElementById("table-body");
+      body.innerHTML = rows.map(row => {
+        const progress = row.average || 0;
+        const progressClass = progress >= 85 ? "var(--success)" : progress >= 60 ? "var(--warning)" : "var(--danger)";
+        return `
+          <tr>
+            <td>${row.number ?? "—"}</td>
+            <td>
+              <strong>${row.deliverable || "Sin nombre"}</strong>
+            </td>
+            <td>${row.deadline || "Sin plazo"}</td>
+            <td>${row.contractSection || "—"}</td>
+            <td>
+              ${row.folderLink ? `<a class="link-button" href="${row.folderLink}" target="_blank" rel="noopener">Abrir carpeta</a>` : "—"}
+            </td>
+            <td>
+              <div>${formatPercentage(row.average)}</div>
+              <div class="progress" aria-hidden="true">
+                <div class="progress-bar" style="width:${Math.min(progress, 100)}%; background:${progressClass};"></div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    };
 
-● Para declarar nula los requerimientos antes mencionado se sustenta en el hecho que los requerimientos son ambiguos e imprecisos por lo que se deja sin efecto el requerimiento N°. 0222240011388 y además los resultados de los requerimientos.`
-            },
-            {
-                date: '16 de Octubre',
-                title: 'Se Emite Requerimiento 0222240012769',
-                icon: 'fa-solid fa-file-circle-plus',
-                description: `Con fecha 16 de octubre del 2024, se emite requerimiento N° 0222240012769, donde solicita se cumpla con remitir lo siguiente:
+    const buildMetricsCards = (monthlyAverages, overallAverage, rowsCount) => {
+      const container = document.getElementById("metrics-cards");
+      const cards = [];
 
-● Archivos en formato texto (txt) del Registro de Compras llevado de manera electrónica (SLE-PLE) de acuerdo a la Resolución de Superintendencia N 286-2009/SUNAT y normas modificatorias, correspondiente a los períodos 01/2022 a 12/2022.
+      cards.push(`
+        <article class="summary-card">
+          <h3>Cumplimiento global</h3>
+          <div class="value">${formatPercentage(overallAverage)}</div>
+          <div class="trend">Consolidado ${rowsCount} entregables</div>
+        </article>
+      `);
 
-● Una copia de la base de datos, en formato Excel (xls o xlsx) o texto (txt) así como copias en archivo PDF o PDF/A del original de los folios referidos a la Legalización de Libro Diario, Libro Mayor, Libro de Inventarios y Balances, Registro de Activos Fijos y Registro de Consignaciones, por llevar la contabilidad en sistema computarizado.
+      monthlyAverages.slice(0, 3).forEach(({ month, value, count }) => {
+        cards.push(`
+          <article class="summary-card">
+            <h3>${month}</h3>
+            <div class="value">${formatPercentage(value)}</div>
+            <div class="trend">${count} registros válidos</div>
+          </article>
+        `);
+      });
 
-● Fecha de vencimiento 22 de octubre del 2024.`
-            },
-            {
-                date: '23 de Octubre',
-                title: 'Resultado del Requerimiento 0222240012769',
-                icon: 'fa-solid fa-file-circle-check',
-                description: `Con fecha 23 de octubre del 2024, se emite el resultado de requerimiento N° 0222240012769, que indica:
+      container.innerHTML = cards.join("");
+    };
 
-● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada, de manera reiterada, mediante el Requerimiento N° 0222240012769, correspondiente al Impuesto general a las Ventas por los periodos del 2022-01 al 2022-12, cuyo vencimiento fue el 22/10/2024.`
-            },
-            {
-                date: '24 de Octubre',
-                title: 'Solicitud de Prórroga Se Considera No Presentada',
-                icon: 'fa-solid fa-calendar-xmark',
-                description: `Con fecha 24 de octubre del 2024, mediante carta N°240021952905-03-SUNAT, se tiene como no presentada la solicitud de prórroga de plazo.
+    const buildHistogram = (months, monthlyAverages, monthlyAverageMap) => {
+      const baseMonths = months.slice(0, 6);
 
-● De acuerdo a la evaluación del expediente, se le comunica que su solicitud de prórroga se considera como no presentada en concordancia con lo dispuesto en el artículo 7° del Reglamento de Procedimiento de Fiscalización aprobado por Decreto Supremo N° 085-2007-EF, y normas modificatorias, al no haber sido presentada dentro del plazo previsto en el referido artículo, ni haber acreditado con documentación fehaciente el caso fortuito o fuerza mayor que impida su presentación en dicho plazo.`
-            },
-            {
-                date: '24 de Octubre',
-                title: 'Se Emite Requerimiento 0222240013164',
-                icon: 'fa-solid fa-file-circle-plus',
-                description: `Con fecha 24 de octubre del 2024, se emite requerimiento N° 0222240013164, mediante el cual se le requiere:
+      const filled = baseMonths.map((month) => {
+        const entry = monthlyAverageMap.get(normalizeLabel(month));
+        const hasData = entry && entry.value !== null && Number.isFinite(entry.value);
+        return {
+          month,
+          value: hasData ? Number(entry.value) : 0,
+          hasData
+        };
+      });
 
-● Sustentar el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 "RELACIÓN DE COMPROBANTES DE PAGO SELECCIONADOS PARA ACREDITAR LAS OPERACIONES" adjunto al presente Requerimiento correspondiente a los proveedores indicados, con la documentación que permita acreditar la efectiva realización de las operaciones de compras (acorde a lo previsto por el artículo 44° de la T.U.O. de la Ley del IGV); y en tanto, este primer criterio sea satisfecho, respecto de la información y/o documentación proporcionada se verificará el cumplimiento de los requisitos sustanciales y formales previstos en los artículos 18° y 19° del T.U.O. de la Ley del IGV, respectivamente.`
-            },
-            {
-                date: '6 de Noviembre',
-                title: 'Respuesta al Requerimiento 0222240013164',
-                icon: 'fa-solid fa-reply',
-                description: `Con fecha 06 de noviembre del 2024, se da respuesta al requerimiento N° 0222240013164, en la cual se indica:
+      const labels = filled.map(item => item.month);
+      const data = filled.map(item => Number(item.value.toFixed(2)));
 
-● Que, se ha cumplido con presentar la documentación solicitada en el requerimiento N° 0222240013164.`
-            },
-            {
-                date: '14 de Noviembre',
-                title: 'Órdenes de Pago Emitida por Gerencia de Control de Deuda',
-                icon: 'fa-solid fa-file-invoice-dollar',
-                description: `⮚ Con fecha 14 de noviembre del 2024, se emiten 11 órdenes de pago por los períodos 01,03,04,05,06,07,08,09,10,11 – 2022.
+      const ctx = document.getElementById("histogramChart").getContext("2d");
+      if (histogramChart) {
+        histogramChart.destroy();
+      }
 
-● Orden de pago N° 021-001-0757794 – periodo 2022-01-
-● Orden de pago N° 021-001-0757822 – periodo 2022-01-
-● Orden de pago N° 021-001-0757785 – periodo 2022-03-
-● Orden de pago N° 021-001-0757786 – periodo 2022-04-
-● Orden de pago N° 021-001-0757787 – periodo 2022-05-
-● Orden de pago N° 021-001-0757788 – periodo 2022-06-
-● Orden de pago N° 021-001-0757789 – periodo 2022-07-
-● Orden de pago N° 021-001-0757790 – periodo 2022-08-
-● Orden de pago N° 021-001-0757791 – periodo 2022-09-
-● Orden de pago N° 021-001-0757792 – periodo 2022-10-
-● Orden de pago N° 021-001-0757823 – periodo 2022-11-`,
-                type: 'coactive'
-            },
-            {
-                date: '18 de Noviembre',
-                title: 'Se Emite la Resolución de Ejecución Coactiva',
-                icon: 'fa-solid fa-gavel',
-                description: `⮚ Con fecha 18 de noviembre del 2024, se emite la resolución de ejecución coactiva N° 021-006-0360096, total de deuda exigible S/.1,669,488.00.`,
-                type: 'coactive'
-            },
-            {
-                date: '19 de Noviembre',
-                title: 'Se Emite la Resolución de Ejecución Coactiva',
-                icon: 'fa-solid fa-gavel',
-                description: `⮚ Con fecha 19 de noviembre del 2024, se emite la resolución de ejecución coactiva N° 021-006-0360223, total de deuda exigible S/.79,052.00.`,
-                type: 'coactive'
-            },
-            {
-                date: '19 de Noviembre',
-                title: 'Se Emite Resultado de Requerimiento 0222240013164 y Resultado de Fiscalización',
-                icon: 'fa-solid fa-file-circle-check',
-                description: `Con Fecha 19 de Noviembre del 2024, se emite resultado de requerimiento N° 0222240013164, cierre de fiscalización.
-
-● Al vencimiento del plazo otorgado, el contribuyente no cumplió con presentar y/o proporcionar la totalidad de la documentación y/o la información solicitada mediante el Requerimiento N° 0222240013164.
-
-● Sin embargo, el contribuyente al no contar con la documentación que sustente el Crédito Fiscal del IGV de los comprobantes de pago detallados en el ANEXO N° 02 "RELACIÓN DE COMPROBANTES DE PAGO SELECCIONADOS PARA ACREDITAR LAS OPERACIONES" adjunto al Requerimiento N° 0222240013164 correspondiente a los proveedores ahí indicados, ha presentado sus declaraciones rectificatorias correspondiente a los periodos enero a marzo 2022.`
-            },
-            {
-                date: '29 de Noviembre',
-                title: 'Se Emite Resoluciones de Determinación y 13 Resoluciones de Multa',
-                icon: 'fa-solid fa-gavel',
-                description: `Se emitieron las siguientes resoluciones de multa:
-
-● 022-00-0027973
-● 022-003-0096799
-● 022-003-0096800
-● 022-003-0096801
-● 022-003-0096803
-● 022-003-0096803
-● 022-003-0096804
-● 022-003-0096805
-● 022-003-0096807
-● 022-003-0096808
-● 022-003-0096809
-● 022-00-0027972`
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const timeline = document.getElementById('timeline');
-            const modal = document.getElementById('eventModal');
-            const bsModal = new bootstrap.Modal(modal);
-            const navItems = document.querySelector('.nav-items');
-
-            // Generar nav-items
-            events.forEach((event, index) => {
-                const navItem = document.createElement('a');
-                navItem.href = `#event-${index}`;
-                navItem.className = `nav-item ${event.type === 'coactive' ? 'coactive' : ''}`;
-                navItem.innerHTML = `
-                    <div class="date">${event.date.split(' ')[0]} ${event.date.split(' ')[2]}</div>
-                    <div class="title">${event.title}</div>
-                `;
-                navItems.appendChild(navItem);
-            });
-
-            // Generar timeline items
-            events.forEach((event, index) => {
-                const item = document.createElement('div');
-                item.className = 'timeline-item';
-                item.id = `event-${index}`;
-                item.innerHTML = `
-                    <div class="timeline-content ${event.type === 'coactive' ? 'coactive' : ''}" onclick="showModal(${index})">
-                        ${event.type === 'coactive' ? '<div class="coactive-badge">Proceso Coactivo</div>' : ''}
-                        <div class="timeline-date">
-                            <i class="fa-regular fa-calendar"></i>
-                            ${event.date}
-                        </div>
-                        <h3 class="timeline-title">${event.title}</h3>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-icon">
-                            <i class="${event.icon}"></i>
-                        </div>
-                    </div>
-                `;
-                timeline.appendChild(item);
-            });
-
-            window.showModal = function(index) {
-                const event = events[index];
-                const modalHeader = modal.querySelector('.modal-header');
-                modalHeader.className = `modal-header ${event.type === 'coactive' ? 'coactive' : ''}`;
-                
-                modal.querySelector('.modal-title').innerHTML = `
-                    <i class="${event.icon} me-2"></i>${event.title}
-                `;
-                modal.querySelector('.event-date').innerHTML = `
-                    <i class="fa-regular fa-calendar me-2 text-${event.type === 'coactive' ? 'danger' : 'primary'}"></i>
-                    <span class="fw-bold">${event.date}</span>
-                `;
-                modal.querySelector('.event-description').innerHTML = event.description || 'No hay descripción disponible.';
-                bsModal.show();
-            };
-
-            // Navegación horizontal
-            const navItemsContainer = document.querySelector('.nav-items-container');
-            const prevButton = document.querySelector('.prev-button');
-            const nextButton = document.querySelector('.next-button');
-            let scrollPosition = 0;
-            const scrollAmount = 300;
-
-            nextButton.addEventListener('click', () => {
-                scrollPosition += scrollAmount;
-                if (scrollPosition > navItems.scrollWidth - navItemsContainer.clientWidth) {
-                    scrollPosition = navItems.scrollWidth - navItemsContainer.clientWidth;
+      histogramChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label: "Cumplimiento promedio (%)",
+            data,
+            customData: filled,
+            backgroundColor: filled.map((item, idx) => {
+              const base = 0.35 + (idx / Math.max(labels.length - 1, 1)) * 0.25;
+              const alpha = item.hasData ? base + 0.35 : 0.22;
+              return `rgba(249, 115, 22, ${alpha.toFixed(2)})`;
+            }),
+            borderRadius: 14,
+            borderSkipped: false,
+            barPercentage: 0.65,
+            categoryPercentage: 0.55
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              grid: {
+                color: "rgba(148, 163, 184, 0.12)"
+              },
+              ticks: {
+                color: "rgba(226, 232, 240, 0.78)",
+                font: {
+                  size: 10
                 }
-                navItems.style.transform = `translateX(-${scrollPosition}px)`;
-            });
-
-            prevButton.addEventListener('click', () => {
-                scrollPosition -= scrollAmount;
-                if (scrollPosition < 0) {
-                    scrollPosition = 0;
-                }
-                navItems.style.transform = `translateX(-${scrollPosition}px)`;
-            });
-
-            // Scroll suave
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                });
-            });
-
-            // Animación de aparición
-            function checkVisibility() {
-                const items = document.querySelectorAll('.timeline-item');
-                items.forEach(item => {
-                    const rect = item.getBoundingClientRect();
-                    const isVisible = (rect.top <= window.innerHeight * 0.8);
-                    if (isVisible) {
-                        item.classList.add('visible');
-                    }
-                });
+              }
+            },
+            y: {
+              beginAtZero: true,
+              suggestedMax: 100,
+              grid: {
+                color: "rgba(148, 163, 184, 0.12)"
+              },
+              ticks: {
+                color: "rgba(226, 232, 240, 0.78)",
+                font: {
+                  size: 10
+                },
+                callback: (val) => `${val}%`
+              }
             }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: "rgba(226, 232, 240, 0.78)",
+                font: {
+                  size: 10
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const meta = context.dataset.customData?.[context.dataIndex];
+                  if (!meta?.hasData) {
+                    return "Sin datos registrados";
+                  }
+                  return `${context.parsed.y.toFixed(1)}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+    };
 
-            window.addEventListener('scroll', checkVisibility);
-            window.addEventListener('load', checkVisibility);
-            setTimeout(checkVisibility, 100);
+    const processData = (rawData) => {
+      const match = rawData.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\);/);
+      if (!match) {
+        throw new Error("No se pudo interpretar la respuesta del Google Sheet.");
+      }
+
+      const json = JSON.parse(match[1]);
+      const columns = json.table.cols || [];
+      const months = columns
+        .slice(5)
+        .map(col => (col?.label ?? "").toString().trim())
+        .filter(Boolean);
+      const validRows = (json.table.rows || [])
+        .map(row => row.c)
+        .filter(cells => Array.isArray(cells) && cells.some(cell => cell && cell.v !== null));
+
+      if (!validRows.length) {
+        throw new Error("No se encontraron filas válidas en la hoja.");
+      }
+
+      const parsedRows = validRows.map((cells) => {
+        const byIndex = (index) => cells[index]?.v ?? null;
+        const monthly = {};
+
+        months.forEach((month, idx) => {
+          const cell = cells[5 + idx] ?? null;
+          const value = parseSheetNumber(cell?.v ?? cell?.f ?? null);
+          if (value !== null && Number.isFinite(value)) {
+            monthly[month] = value;
+          }
         });
-    </script>
+
+        const monthValues = Object.values(monthly);
+        const average = monthValues.length ? monthValues.reduce((sum, v) => sum + v, 0) / monthValues.length : null;
+
+        return {
+          number: byIndex(0),
+          deliverable: byIndex(1),
+          deadline: byIndex(2),
+          contractSection: byIndex(3),
+          folderLink: byIndex(4),
+          monthly,
+          average
+        };
+      }).filter(row =>
+        row.number !== null ||
+        row.deliverable ||
+        Object.keys(row.monthly).length
+      );
+
+      const monthlyAverages = months.map((month) => {
+        const values = parsedRows
+          .map(row => row.monthly[month])
+          .filter(value => value !== null && value !== undefined && Number.isFinite(value));
+        return {
+          month,
+          key: normalizeLabel(month),
+          value: values.length ? values.reduce((sum, v) => sum + v, 0) / values.length : null,
+          count: values.length
+        };
+      });
+
+      const monthlyAverageMap = new Map(
+        monthlyAverages
+          .filter(item => item.key)
+          .map(item => [item.key, item])
+      );
+
+      const averages = parsedRows
+        .map(row => row.average)
+        .filter(value => value !== null && value !== undefined && Number.isFinite(value));
+
+      const overallAverage = averages.length ? averages.reduce((sum, v) => sum + v, 0) / averages.length : null;
+
+      return {
+        months,
+        rows: parsedRows,
+        monthlyAverages,
+        monthlyAverageMap,
+        overallAverage
+      };
+    };
+
+    const renderDashboard = ({ months, rows, monthlyAverages, monthlyAverageMap, overallAverage }) => {
+      buildTableHead();
+      buildTableBody(rows);
+      buildMetricsCards(monthlyAverages, overallAverage, rows.length);
+      buildHistogram(months, monthlyAverages, monthlyAverageMap);
+    };
+
+    const loadDashboard = async () => {
+      if (dashboardLoaded) return;
+      showSpinner();
+      try {
+        const response = await fetch(SHEET_ENDPOINT);
+        if (!response.ok) {
+          throw new Error(`Error al solicitar la hoja: ${response.status}`);
+        }
+        const text = await response.text();
+        const data = processData(text);
+        renderDashboard(data);
+        dashboardLoaded = true;
+        toast("Dashboard listo", "Los datos del servicio se cargaron correctamente.", "success");
+      } catch (error) {
+        console.error(error);
+        toast("Error al cargar", error.message || "No se pudieron obtener los datos del Google Sheet.", "error");
+        dashboardLoaded = false;
+      } finally {
+        hideSpinner();
+      }
+    };
+
+    authForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = accessInput?.value.trim();
+      if (value === ACCESS_CODE) {
+        sessionStorage.setItem("orygen-auth", "1");
+        toast("Acceso concedido", "Bienvenido al panel de control.", "success");
+        enterDashboard();
+      } else {
+        toast("Código inválido", "Verifique el código e intente nuevamente.", "error");
+        if (accessInput) {
+          accessInput.value = "";
+          accessInput.focus();
+        }
+      }
+    });
+
+    logoutButton?.addEventListener("click", (event) => {
+      event.preventDefault();
+      logoutUser();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const isAuthenticated = sessionStorage.getItem("orygen-auth") === "1";
+      if (isAuthenticated) {
+        enterDashboard();
+      } else {
+        showAuthScreen();
+      }
+    });
+  </script>
 </body>
 </html>
+
+
+
