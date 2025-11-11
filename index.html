@@ -274,6 +274,36 @@
       color: var(--accent);
     }
 
+    .summary-card.alert {
+      border-color: rgba(249, 115, 22, 0.45);
+      box-shadow: 0 18px 42px rgba(249, 115, 22, 0.25);
+    }
+
+    .alert-list {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+    }
+
+    .alert-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(249, 115, 22, 0.1);
+    }
+
+    .alert-list li strong {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
     .panel {
       background: var(--surface);
       border: 1px solid var(--card-border);
@@ -576,6 +606,9 @@
     <section class="summary-grid" id="metrics-cards">
       <!-- Métricas principales renderizadas por JS -->
     </section>
+    <section class="summary-grid" id="alerts-cards">
+      <!-- Alertas de cumplimiento renderizadas por JS -->
+    </section>
 
     <section class="panel">
       <header>
@@ -708,8 +741,11 @@
     const buildTableBody = (rows) => {
       const body = document.getElementById("table-body");
       body.innerHTML = rows.map(row => {
-        const progress = row.average || 0;
-        const progressClass = progress >= 85 ? "var(--success)" : progress >= 60 ? "var(--warning)" : "var(--danger)";
+        const hasAverage = Number.isFinite(row.average);
+        const progress = hasAverage ? row.average : 0;
+        const progressClass = hasAverage
+          ? (progress >= 85 ? "var(--success)" : progress >= 60 ? "var(--warning)" : "var(--danger)")
+          : "rgba(148, 163, 184, 0.35)";
         return `
           <tr>
             <td>${row.number ?? "—"}</td>
@@ -724,7 +760,7 @@
             <td>
               <div>${formatPercentage(row.average)}</div>
               <div class="progress" aria-hidden="true">
-                <div class="progress-bar" style="width:${Math.min(progress, 100)}%; background:${progressClass};"></div>
+                <div class="progress-bar" style="width:${hasAverage ? Math.min(progress, 100) : 0}%; background:${progressClass};"></div>
               </div>
             </td>
           </tr>
@@ -732,15 +768,17 @@
       }).join("");
     };
 
-    const buildMetricsCards = (monthlyAverages, overallAverage, rowsCount) => {
+    const buildMetricsCards = (monthlyAverages, overallAverage, rowsWithDataCount, rows) => {
       const container = document.getElementById("metrics-cards");
+      const alertsContainer = document.getElementById("alerts-cards");
       const cards = [];
+      const alertCards = [];
 
       cards.push(`
         <article class="summary-card">
           <h3>Cumplimiento global</h3>
           <div class="value">${formatPercentage(overallAverage)}</div>
-          <div class="trend">Consolidado ${rowsCount} entregables</div>
+          <div class="trend">${rowsWithDataCount} entregables con datos</div>
         </article>
       `);
 
@@ -755,6 +793,30 @@
       });
 
       container.innerHTML = cards.join("");
+
+      const rowsBelowTarget = rows.filter(row => Number.isFinite(row.average) && row.average < 100);
+      if (rowsBelowTarget.length) {
+        const listItems = rowsBelowTarget.map(row => {
+          const delta = 100 - row.average;
+          return `
+            <li>
+              <strong>${row.deliverable ?? "Sin nombre"}</strong>
+              <span>${formatPercentage(row.average)} · Falta ${formatPercentage(delta)}</span>
+            </li>
+          `;
+        }).join("");
+
+        alertCards.push(`
+          <article class="summary-card alert">
+            <h3>Entregables bajo objetivo</h3>
+            <div class="value">${rowsBelowTarget.length}</div>
+            <div class="trend">Revisar pendientes</div>
+            <ul class="alert-list">${listItems}</ul>
+          </article>
+        `);
+      }
+
+      alertsContainer.innerHTML = alertCards.join("");
     };
 
     const buildHistogram = (months, monthlyAverages, monthlyAverageMap) => {
@@ -935,9 +997,10 @@
     };
 
     const renderDashboard = ({ months, rows, monthlyAverages, monthlyAverageMap, overallAverage }) => {
+      const rowsWithDataCount = rows.filter(row => Number.isFinite(row.average)).length;
       buildTableHead();
       buildTableBody(rows);
-      buildMetricsCards(monthlyAverages, overallAverage, rows.length);
+      buildMetricsCards(monthlyAverages, overallAverage, rowsWithDataCount, rows);
       buildHistogram(months, monthlyAverages, monthlyAverageMap);
     };
 
@@ -995,6 +1058,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
