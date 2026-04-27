@@ -17,7 +17,7 @@ function ensureConfiguredUrl() {
 
 (async function initLogin() {
   if (getSession()) {
-    window.location.href = 'main.html';
+    window.location.href = 'KPIS_2026/pages/main.html';
     return;
   }
 
