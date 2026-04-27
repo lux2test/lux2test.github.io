@@ -23,7 +23,7 @@ async function login(event) {
                 // Guardar datos del usuario en sessionStorage
                 sessionStorage.setItem('usuario', JSON.stringify(response.usuario));
                 // Redirigir al dashboard
-                window.location.href = 'KPIS_2026/dashboard.html';
+                window.location.href = '/KPIS_2026/dashboard.html';
             } else {
                 alert('Usuario o contraseña incorrectos');
             }
