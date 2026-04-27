@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Costos y proviciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/common.css" />
+    <link rel="stylesheet" href="../styles/costos-proviciones.css" />
+  </head>
+  <body>
+    <main class="costos-module">
+      <section class="costos-grid">
+        <article class="costos-card">
+          <h3>Remuneración neta</h3>
+          <div class="remu-layout">
+            <div class="remu-values">
+              <p class="remu-main" id="remuNetaValue">S/ --</p>
+              <p class="remu-sub">Computable: <strong id="remuCompValue">S/ --</strong></p>
+              <p class="remu-sub">No computable: <strong id="remuNoCompValue">S/ --</strong></p>
+            </div>
+            <div class="remu-pie-wrap">
+              <div class="remu-pie" id="remuPie" aria-label="División entre computable y no computable"></div>
+            </div>
+          </div>
+          <div class="remu-legend">
+            <p><span class="dot dot-comp"></span> Computable: <strong id="remuCompPct">--</strong></p>
+            <p><span class="dot dot-no-comp"></span> No computable: <strong id="remuNoCompPct">--</strong></p>
+          </div>
+          <p class="remu-status" id="remuStatus"></p>
+        </article>
+
+        <article class="costos-card">
+          <h3>Proviciones</h3>
+          <div class="remu-layout">
+            <div class="remu-values">
+              <p class="remu-main" id="provValue">S/ --</p>
+            </div>
+            <div class="remu-pie-wrap">
+              <div class="remu-pie remu-pie-prov" id="provPie" aria-label="Porcentaje de provisiones sobre remuneración neta"></div>
+            </div>
+          </div>
+          <div class="remu-legend">
+            <p><span class="dot dot-comp"></span> Provisiones: <strong id="provPct">--</strong></p>
+            <p><span class="dot dot-no-comp"></span> Resto RN: <strong id="provRestPct">--</strong></p>
+          </div>
+          <p class="remu-status" id="provStatus"></p>
+        </article>
+
+        <article class="costos-card">
+          <h3>Essalud</h3>
+          <p class="remu-main" id="essaludValue">S/ --</p>
+          <p class="remu-status" id="essaludStatus"></p>
+        </article>
+      </section>
+
+      <section class="costos-grid single-col">
+        <article class="costos-card">
+          <h3>Costo total en factor humano por cliente</h3>
+          <div class="bars-list" id="factorHumanoTotalList"></div>
+        </article>
+
+        <article class="costos-card">
+          <h3>Promedio por persona vs punto de equilibrio</h3>
+          <p class="equilibrio-label" id="equilibrioLabel">Punto de equilibrio: S/ --</p>
+          <div class="avg-list" id="factorHumanoPromedioList"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/costos-proviciones.js"></script>
+  </body>
+</html>

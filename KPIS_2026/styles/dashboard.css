@@ -1,0 +1,261 @@
+.dashboard-module {
+  padding: 20px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.kpi-card--rotacion {
+  padding: 20px 22px 18px;
+}
+
+.kpi-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.kpi-chart-wrap {
+  position: relative;
+  width: min(200px, 70vw);
+  height: min(200px, 70vw);
+  margin: 0 auto 12px;
+}
+
+.kpi-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.kpi-ring-track,
+.kpi-ring-progress {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.kpi-ring-track {
+  stroke: var(--line);
+}
+
+.kpi-ring-progress {
+  stroke: var(--accent);
+  transition: stroke-dashoffset 0.55s ease;
+}
+
+.kpi-chart-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.kpi-metric-value {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+  font-weight: 700;
+  color: var(--accent-strong);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-count {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.kpi-status {
+  min-height: 1.25em;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-align: center;
+}
+
+.kpi-status.is-loading {
+  color: var(--accent-strong);
+}
+
+.kpi-status.is-error {
+  color: #dc2626;
+}
+
+.kpi-status:empty {
+  display: none;
+}
+
+.service-block {
+  margin-top: 18px;
+}
+
+.service-block-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.service-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 4px;
+}
+
+.service-card.is-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.service-card.is-clickable:hover {
+  transform: translateY(-1px);
+  border-color: #fdba74;
+}
+
+.service-card.is-clickable:focus-visible {
+  outline: none;
+  border-color: #fdba74;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+.service-card span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.service-card strong {
+  font-size: 22px;
+  line-height: 1;
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-card--satisfaccion {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.kpi-sat-value {
+  text-align: center;
+  font-size: clamp(2rem, 6vw, 2.4rem);
+  line-height: 1;
+  color: var(--accent-strong);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.kpi-stars {
+  position: relative;
+  width: fit-content;
+  margin: 22px auto 10px;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.kpi-stars-base {
+  color: #e5e7eb;
+}
+
+.kpi-stars-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  color: #f59e0b;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.detail-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 60;
+}
+
+.detail-modal.is-open {
+  display: block;
+}
+
+.detail-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.detail-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(760px, calc(100vw - 24px));
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+  margin: 20px auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-modal__header {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-modal__close {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.detail-modal__meta {
+  padding: 10px 14px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.detail-modal__table-wrap {
+  overflow: auto;
+  padding: 10px 14px 14px;
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-table th,
+.detail-table td {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 6px;
+  font-size: 14px;
+}

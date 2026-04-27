@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KPIs 2026 | Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/common.css" />
+    <link rel="stylesheet" href="styles/login.css" />
+  </head>
+  <body>
+    <main class="login-layout">
+      <section class="login-card">
+        <div class="brand-block">
+          <span class="brand-kicker">KPIs 2026</span>
+          <h1>Panel de control</h1>
+          <p>Ingresa con tu usuario para acceder al dashboard.</p>
+        </div>
+
+        <form id="loginForm" class="login-form" autocomplete="off">
+          <label for="usuario">Usuario</label>
+          <input id="usuario" name="usuario" type="text" required />
+
+          <label for="contrasena">Contraseña</label>
+          <input id="contrasena" name="contrasena" type="password" required />
+
+          <button id="submitBtn" type="submit" class="btn-primary">Entrar</button>
+          <p id="loginMessage" class="form-message" role="status"></p>
+        </form>
+
+        <div class="helper-note">
+          <small>Usuario demo inicial: <strong>admin</strong> / <strong>admin123</strong></small>
+        </div>
+      </section>
+    </main>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/login.js"></script>
+  </body>
+</html>

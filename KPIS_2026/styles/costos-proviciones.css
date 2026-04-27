@@ -1,0 +1,182 @@
+.costos-module {
+  padding: 20px;
+}
+
+.costos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 12px;
+}
+
+.costos-grid.single-col {
+  grid-template-columns: 1fr;
+  margin-top: 12px;
+}
+
+.costos-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.costos-card h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.remu-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+}
+
+.remu-main {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  color: var(--accent-strong);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.remu-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.remu-sub strong {
+  color: var(--text);
+}
+
+.remu-pie-wrap {
+  flex: 0 0 auto;
+}
+
+.remu-pie {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(#f97316 0deg, #f97316 180deg, #16a34a 180deg, #16a34a 360deg);
+  position: relative;
+}
+
+.remu-pie::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.remu-legend {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.remu-legend p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.dot-comp {
+  background: #f97316;
+}
+
+.dot-no-comp {
+  background: #16a34a;
+}
+
+.remu-pie-prov {
+  background: conic-gradient(#2563eb 0deg, #2563eb 180deg, #e5e7eb 180deg, #e5e7eb 360deg);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.remu-status {
+  min-height: 1.2em;
+  margin-top: 6px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.bars-list,
+.avg-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bar-row {
+  display: grid;
+  gap: 4px;
+}
+
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #2563eb;
+}
+
+.equilibrio-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.avg-track {
+  position: relative;
+  height: 24px;
+  border-radius: 8px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.avg-center-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #9ca3af;
+}
+
+.avg-bar {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 6px;
+}
+
+.avg-bar.above {
+  left: 50%;
+  background: #16a34a;
+}
+
+.avg-bar.below {
+  right: 50%;
+  background: #dc2626;
+}

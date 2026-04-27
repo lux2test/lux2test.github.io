@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Económico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/common.css" />
+    <link rel="stylesheet" href="../styles/economico.css" />
+  </head>
+  <body>
+    <main class="economico-module">
+      <section class="kpi-grid-econ">
+        <article class="econ-card">
+          <h3>Índice de asignación familiar</h3>
+          <div class="pie-wrap">
+            <div id="asigPie" class="asig-pie" aria-label="Distribución C/ASIG y S/ASIG"></div>
+          </div>
+          <div class="asig-legend">
+            <p><span class="dot dot-c"></span> C/ASIG: <strong id="cAsigPct">--</strong></p>
+            <p><span class="dot dot-s"></span> S/ASIG: <strong id="sAsigPct">--</strong></p>
+          </div>
+          <p class="asig-status" id="asigStatus"></p>
+        </article>
+
+        <article class="econ-card econ-card-clickable" id="depreCard" role="button" tabindex="0">
+          <h3>Depreciación de uniformes</h3>
+          <p class="money-value money-loss" id="depreValue">S/ --</p>
+          <p class="kpi-count-econ" id="depreMeta">--</p>
+          <p class="asig-status" id="depreStatus"></p>
+        </article>
+
+        <article class="econ-card">
+          <h3>Licencia con goce</h3>
+          <p class="money-value money-loss" id="licGoceValue">S/ --</p>
+          <p class="kpi-count-econ" id="licGoceMeta">--</p>
+          <p class="asig-status" id="licGoceStatus"></p>
+        </article>
+
+        <article class="econ-card">
+          <h3>Descansos médicos</h3>
+          <p class="money-value money-loss" id="descMedValue">S/ --</p>
+          <p class="kpi-count-econ" id="descMedMeta">--</p>
+          <ul class="alert-list" id="descMedAlertList"></ul>
+          <p class="asig-status" id="descMedStatus"></p>
+        </article>
+      </section>
+
+      <section class="kpi-grid-econ">
+        <article class="econ-card">
+          <h3>Recuperación en faltos</h3>
+          <p class="money-value money-gain" id="recFaltosValue">S/ --</p>
+          <p class="asig-status" id="recFaltosStatus"></p>
+        </article>
+
+        <article class="econ-card econ-card-clickable" id="gastosAdCard" role="button" tabindex="0">
+          <h3>Gastos adicionales</h3>
+          <p class="money-value money-loss" id="gastosAdValue">S/ --</p>
+          <p class="kpi-count-econ" id="gastosAdMeta">--</p>
+          <p class="asig-status" id="gastosAdStatus"></p>
+        </article>
+      </section>
+
+      <div class="detail-modal" id="depreDetailModal" aria-hidden="true">
+        <div class="detail-modal__backdrop" data-close-modal="true"></div>
+        <section class="detail-modal__panel" role="dialog" aria-modal="true" aria-labelledby="depreDetailTitle">
+          <header class="detail-modal__header">
+            <h4 id="depreDetailTitle">Detalle de depreciación</h4>
+            <button type="button" id="depreDetailClose" class="detail-modal__close" aria-label="Cerrar">×</button>
+          </header>
+          <p class="detail-modal__meta" id="depreDetailMeta"></p>
+          <div class="detail-modal__table-wrap">
+            <table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Documento</th>
+                  <th>Nombre</th>
+                  <th>Días</th>
+                  <th>Días impacto</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="depreDetailBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div class="detail-modal" id="gastosDetailModal" aria-hidden="true">
+        <div class="detail-modal__backdrop" data-close-gastos-modal="true"></div>
+        <section class="detail-modal__panel" role="dialog" aria-modal="true" aria-labelledby="gastosDetailTitle">
+          <header class="detail-modal__header">
+            <h4 id="gastosDetailTitle">Detalle de gastos adicionales</h4>
+            <button type="button" id="gastosDetailClose" class="detail-modal__close" aria-label="Cerrar">×</button>
+          </header>
+          <p class="detail-modal__meta" id="gastosDetailMeta"></p>
+          <div class="detail-modal__table-wrap">
+            <table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Persona</th>
+                  <th>Monto</th>
+                  <th>Concepto</th>
+                </tr>
+              </thead>
+              <tbody id="gastosDetailBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/economico.js"></script>
+  </body>
+</html>

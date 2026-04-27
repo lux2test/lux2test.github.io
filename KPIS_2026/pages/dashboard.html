@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/common.css" />
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+  </head>
+  <body>
+    <main class="dashboard-module">
+      <section class="kpi-grid" id="kpiGrid">
+        <article class="kpi-card kpi-card--rotacion" id="kpiRotacionCard">
+          <h3 class="kpi-title">Índice de rotación</h3>
+
+          <div class="kpi-chart-wrap">
+            <svg class="kpi-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="kpi-ring-track" cx="60" cy="60" r="50" pathLength="100" />
+              <circle
+                id="kpiRotacionRing"
+                class="kpi-ring-progress"
+                cx="60"
+                cy="60"
+                r="50"
+                pathLength="100"
+                stroke-dasharray="100"
+                stroke-dashoffset="100"
+              />
+            </svg>
+            <div class="kpi-chart-center">
+              <span class="kpi-metric-value" id="kpiRotacionValue">--</span>
+            </div>
+          </div>
+          <p class="kpi-count" id="kpiRotacionCount">Bajas: --</p>
+
+          <p class="kpi-status" id="kpiRotacionStatus" role="status"></p>
+        </article>
+
+        <article class="kpi-card kpi-card--ausentismo" id="kpiAusentismoCard">
+          <h3 class="kpi-title">Índice de ausentismo</h3>
+
+          <div class="kpi-chart-wrap">
+            <svg class="kpi-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="kpi-ring-track" cx="60" cy="60" r="50" pathLength="100" />
+              <circle
+                id="kpiAusentismoRing"
+                class="kpi-ring-progress"
+                cx="60"
+                cy="60"
+                r="50"
+                pathLength="100"
+                stroke-dasharray="100"
+                stroke-dashoffset="100"
+              />
+            </svg>
+            <div class="kpi-chart-center">
+              <span class="kpi-metric-value" id="kpiAusentismoValue">--</span>
+            </div>
+          </div>
+          <p class="kpi-count" id="kpiAusentismoCount">Faltos: --</p>
+
+          <p class="kpi-status" id="kpiAusentismoStatus" role="status"></p>
+        </article>
+
+        <article class="kpi-card kpi-card--servicios" id="kpiServiciosCard">
+          <h3 class="kpi-title">Índice de servicios no cubiertos</h3>
+
+          <div class="kpi-chart-wrap">
+            <svg class="kpi-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="kpi-ring-track" cx="60" cy="60" r="50" pathLength="100" />
+              <circle
+                id="kpiServiciosRing"
+                class="kpi-ring-progress"
+                cx="60"
+                cy="60"
+                r="50"
+                pathLength="100"
+                stroke-dasharray="100"
+                stroke-dashoffset="100"
+              />
+            </svg>
+            <div class="kpi-chart-center">
+              <span class="kpi-metric-value" id="kpiServiciosValue">--</span>
+            </div>
+          </div>
+          <p class="kpi-count" id="kpiServiciosCount">No cubiertos: --</p>
+
+          <p class="kpi-status" id="kpiServiciosStatus" role="status"></p>
+        </article>
+
+        <article class="kpi-card kpi-card--satisfaccion" id="kpiSatisfaccionCard">
+          <h3 class="kpi-title">Satisfacción del cliente</h3>
+          <p class="kpi-sat-value" id="kpiSatisfaccionValue">--</p>
+          <div class="kpi-stars" id="kpiSatisfaccionStars" aria-label="Calificacion">
+            <span class="kpi-stars-base">★★★★★</span>
+            <span class="kpi-stars-fill" id="kpiSatisfaccionStarsFill">★★★★★</span>
+          </div>
+          <p class="kpi-count" id="kpiSatisfaccionCount">Muestras: --</p>
+          <p class="kpi-status" id="kpiSatisfaccionStatus" role="status"></p>
+        </article>
+      </section>
+
+      <section class="service-block" id="serviceBlock">
+        <h3 class="service-block-title">Comportamiento del Servicio</h3>
+        <div class="service-grid">
+          <article class="service-card is-clickable" data-metric="descansoTrab" role="button" tabindex="0"><span>Descansos trabajados</span><strong id="svcDescansoTrab">--</strong></article>
+          <article class="service-card is-clickable" data-metric="feriadoTrab" role="button" tabindex="0"><span>Feriados trabajados</span><strong id="svcFeriadoTrab">--</strong></article>
+          <article class="service-card is-clickable" data-metric="permisoSinGoce" role="button" tabindex="0"><span>Permisos sin goce</span><strong id="svcPermisoSinGoce">--</strong></article>
+          <article class="service-card is-clickable" data-metric="licenciaConGoce" role="button" tabindex="0"><span>Licencia con goce</span><strong id="svcLicenciaConGoce">--</strong></article>
+          <article class="service-card is-clickable" data-metric="suspensiones" role="button" tabindex="0"><span>Suspensiones</span><strong id="svcSuspensiones">--</strong></article>
+          <article class="service-card is-clickable" data-metric="vacaciones" role="button" tabindex="0"><span>Vacaciones</span><strong id="svcVacaciones">--</strong></article>
+          <article class="service-card is-clickable" data-metric="noProgramados" role="button" tabindex="0"><span>No programados</span><strong id="svcNoProgramados">--</strong></article>
+        </div>
+      </section>
+
+      <div class="detail-modal" id="detailModal" aria-hidden="true">
+        <div class="detail-modal__backdrop" data-close-modal="true"></div>
+        <section class="detail-modal__panel" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+          <header class="detail-modal__header">
+            <h4 id="detailModalTitle">Detalle</h4>
+            <button type="button" id="detailModalClose" class="detail-modal__close" aria-label="Cerrar">×</button>
+          </header>
+          <p class="detail-modal__meta" id="detailModalMeta"></p>
+          <div class="detail-modal__table-wrap">
+            <table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Documento</th>
+                  <th>Nombre</th>
+                  <th>Mes</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody id="detailModalBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/dashboard.js"></script>
+  </body>
+</html>
